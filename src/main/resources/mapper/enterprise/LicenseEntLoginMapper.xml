@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.enterprise.LicenseEntLoginMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="ent_lic_num" jdbcType="VARCHAR" property="entLicNum" />
+		<result column="ent_name" jdbcType="VARCHAR" property="entName" />
+		<result column="own_name" jdbcType="VARCHAR" property="ownName" />
+		<result column="own_certid" jdbcType="VARCHAR" property="ownCertid" />
+		<result column="own_certty" jdbcType="VARCHAR" property="ownCertty" />
+		<result column="ent_password" jdbcType="VARCHAR" property="entPassword" />
+		<result column="ent_salt" jdbcType="VARCHAR" property="entSalt" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		
+		<association property="licenseServiceApply"
+			javaType="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+			<id column="id" property="id" />
+			<result column="ent_id" property="entId" />
+			<result column="tax_no" property="taxNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, ent_id, ent_lic_num, ent_name, own_name, own_certid, own_certty,
+		ent_password,
+		ent_salt, db_status, created_date, created, modified_date, modified
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_ent_login
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_ent_login b, license_service_apply l where b.ent_id = l.ent_id
+		and l.tax_no = #{tax_no,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from license_ent_login
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_ent_login
+		where ent_id = #{ent_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_ent_login
+		where ent_name = #{ent_name,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+		insert into license_ent_login (id, ent_id, ent_lic_num,
+		ent_name, own_name, own_certid,
+		own_certty, ent_password, ent_salt,
+		db_status, created_date, created,
+		modified_date, modified)
+		values (#{id,jdbcType=INTEGER}, #{entId,jdbcType=VARCHAR},
+		#{entLicNum,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR}, #{ownName,jdbcType=VARCHAR}, #{ownCertid,jdbcType=VARCHAR},
+		#{ownCertty,jdbcType=VARCHAR}, #{entPassword,jdbcType=VARCHAR},
+		#{entSalt,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT}, #{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+		insert into license_ent_login
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="entLicNum != null">
+				ent_lic_num,
+			</if>
+			<if test="entName != null">
+				ent_name,
+			</if>
+			<if test="ownName != null">
+				own_name,
+			</if>
+			<if test="ownCertid != null">
+				own_certid,
+			</if>
+			<if test="ownCertty != null">
+				own_certty,
+			</if>
+			<if test="entPassword != null">
+				ent_password,
+			</if>
+			<if test="entSalt != null">
+				ent_salt,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicNum != null">
+				#{entLicNum,jdbcType=VARCHAR},
+			</if>
+			<if test="entName != null">
+				#{entName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownName != null">
+				#{ownName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertid != null">
+				#{ownCertid,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertty != null">
+				#{ownCertty,jdbcType=VARCHAR},
+			</if>
+			<if test="entPassword != null">
+				#{entPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="entSalt != null">
+				#{entSalt,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+		update license_ent_login
+		<set>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicNum != null">
+				ent_lic_num = #{entLicNum,jdbcType=VARCHAR},
+			</if>
+			<if test="entName != null">
+				ent_name = #{entName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownName != null">
+				own_name = #{ownName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertid != null">
+				own_certid = #{ownCertid,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertty != null">
+				own_certty = #{ownCertty,jdbcType=VARCHAR},
+			</if>
+			<if test="entPassword != null">
+				ent_password = #{entPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="entSalt != null">
+				ent_salt = #{entSalt,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+		update license_ent_login
+		set ent_id = #{entId,jdbcType=VARCHAR},
+		ent_lic_num = #{entLicNum,jdbcType=VARCHAR},
+		ent_name = #{entName,jdbcType=VARCHAR},
+		own_name = #{ownName,jdbcType=VARCHAR},
+		own_certid = #{ownCertid,jdbcType=VARCHAR},
+		own_certty = #{ownCertty,jdbcType=VARCHAR},
+		ent_password = #{entPassword,jdbcType=VARCHAR},
+		ent_salt = #{entSalt,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		created = #{created,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

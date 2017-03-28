@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.invoice.LicenseInvoicePlatformOrderMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrder">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="platform" jdbcType="VARCHAR" property="platform" />
+		<result column="pf_user_name" jdbcType="VARCHAR" property="pfUserName" />
+		<result column="pf_order_id" jdbcType="VARCHAR" property="pfOrderId" />
+		<result column="pf_refund_id" jdbcType="VARCHAR" property="pfRefundId" />
+		<result column="order_date" jdbcType="TIMESTAMP" property="orderDate" />
+		<result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+		<result column="order_invoice_status" jdbcType="VARCHAR"
+			property="orderInvoiceStatus" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+
+		<association property="licenseInvoiceInfo"
+			javaType="com.wangyin.ebl.po.invoice.LicenseInvoiceInfo">
+			<id column="id" property="id" />
+			<result column="ent_id" property="entId" />
+			<result column="invoice_apply_id" property="invoiceApplyId" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, platform, pf_user_name, pf_order_id, pf_refund_id, order_date,
+		order_amount,
+		order_invoice_status, created, created_date, modified, modified_date, db_status,
+		ent_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_platform_order
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_platform_order
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_invoice_platform_order l,license_invoice_info r where l.ent_id = r.ent_id 
+		and r.invoice_apply_id = #{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from license_invoice_platform_order
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrder">
+		insert into license_invoice_platform_order (id, platform, pf_user_name,
+		pf_order_id, pf_refund_id, order_date,
+		order_amount, order_invoice_status, created,
+		created_date, modified, modified_date,
+		db_status, ent_id)
+		values (#{id,jdbcType=BIGINT}, #{platform,jdbcType=VARCHAR},
+		#{pfUserName,jdbcType=VARCHAR},
+		#{pfOrderId,jdbcType=VARCHAR}, #{pfRefundId,jdbcType=VARCHAR}, #{orderDate,jdbcType=TIMESTAMP},
+		#{orderAmount,jdbcType=DECIMAL},
+		#{orderInvoiceStatus,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR},
+		#{createdDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		#{dbStatus,jdbcType=TINYINT}, #{entId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrder">
+		insert into license_invoice_platform_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="platform != null">
+				platform,
+			</if>
+			<if test="pfUserName != null">
+				pf_user_name,
+			</if>
+			<if test="pfOrderId != null">
+				pf_order_id,
+			</if>
+			<if test="pfRefundId != null">
+				pf_refund_id,
+			</if>
+			<if test="orderDate != null">
+				order_date,
+			</if>
+			<if test="orderAmount != null">
+				order_amount,
+			</if>
+			<if test="orderInvoiceStatus != null">
+				order_invoice_status,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="platform != null">
+				#{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="pfUserName != null">
+				#{pfUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="pfOrderId != null">
+				#{pfOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfRefundId != null">
+				#{pfRefundId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				#{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderAmount != null">
+				#{orderAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="orderInvoiceStatus != null">
+				#{orderInvoiceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrder">
+		update license_invoice_platform_order
+		<set>
+			<if test="platform != null">
+				platform = #{platform,jdbcType=VARCHAR},
+			</if>
+			<if test="pfUserName != null">
+				pf_user_name = #{pfUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="pfOrderId != null">
+				pf_order_id = #{pfOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfRefundId != null">
+				pf_refund_id = #{pfRefundId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				order_date = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderAmount != null">
+				order_amount = #{orderAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="orderInvoiceStatus != null">
+				order_invoice_status = #{orderInvoiceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrder">
+		update license_invoice_platform_order
+		set platform = #{platform,jdbcType=VARCHAR},
+		pf_user_name = #{pfUserName,jdbcType=VARCHAR},
+		pf_order_id = #{pfOrderId,jdbcType=VARCHAR},
+		pf_refund_id = #{pfRefundId,jdbcType=VARCHAR},
+		order_date = #{orderDate,jdbcType=TIMESTAMP},
+		order_amount = #{orderAmount,jdbcType=DECIMAL},
+		order_invoice_status = #{orderInvoiceStatus,jdbcType=VARCHAR},
+		created = #{created,jdbcType=VARCHAR},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		ent_id = #{entId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

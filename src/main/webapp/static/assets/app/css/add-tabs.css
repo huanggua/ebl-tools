@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2015-8-11, 16:18:09
+    Author     : joe
+*/
+
+.close-tab {
+	font-family:Microsoft yahei;
+    font-size: 10px;
+    position:absolute;
+    right:2px;
+    top: -2px;
+    padding-right: 2px;
+    z-index: 99;
+    cursor: pointer;
+    color: #428bca;
+}
+
+.topbar-collapse {
+	clear:both;
+    float:right;
+}

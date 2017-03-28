@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.wangyin.ebl.dao.invoice.LicenseInvoicePlatformOrderProductMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrderProduct">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="pf_order_id" jdbcType="VARCHAR" property="pfOrderId" />
+		<result column="pf_product_id" jdbcType="VARCHAR" property="pfProductId" />
+		<result column="pf_product_name" jdbcType="VARCHAR" property="pfProductName" />
+		<result column="product_mer_price" jdbcType="DECIMAL" property="productMerPrice" />
+		<result column="product_count" jdbcType="INTEGER" property="productCount" />
+		<result column="product_invoice_status" jdbcType="VARCHAR"
+			property="productInvoiceStatus" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="product_preferential_amount" jdbcType="DECIMAL"
+			property="productPreferentialAmount" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<association property="licenseInvoiceInfo"
+			javaType="com.wangyin.ebl.po.invoice.LicenseInvoiceInfo">
+			<id column="id" property="id" />
+			<result column="ent_id" property="entId" />
+			<result column="invoice_apply_id" property="invoiceApplyId" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, pf_order_id, pf_product_id, pf_product_name,
+		product_mer_price,
+		product_count,
+		product_invoice_status, created,
+		created_date, modified, modified_date,
+		product_preferential_amount,
+		db_status, ent_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_platform_order_product
+		where id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_platform_order_product
+		where ent_id =
+		#{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_invoice_platform_order_product
+		l,license_invoice_info r where l.ent_id = r.ent_id
+		and r.invoice_apply_id = #{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		license_invoice_platform_order_product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrderProduct">
+		insert into license_invoice_platform_order_product (id,
+		pf_order_id,
+		pf_product_id,
+		pf_product_name, product_mer_price,
+		product_count,
+		product_invoice_status, created, created_date,
+		modified,
+		modified_date, product_preferential_amount,
+		db_status, ent_id)
+		values
+		(#{id,jdbcType=BIGINT}, #{pfOrderId,jdbcType=VARCHAR},
+		#{pfProductId,jdbcType=VARCHAR},
+		#{pfProductName,jdbcType=VARCHAR},
+		#{productMerPrice,jdbcType=DECIMAL},
+		#{productCount,jdbcType=INTEGER},
+		#{productInvoiceStatus,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		#{productPreferentialAmount,jdbcType=DECIMAL},
+		#{dbStatus,jdbcType=TINYINT}, #{entId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrderProduct">
+		insert into license_invoice_platform_order_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pfOrderId != null">
+				pf_order_id,
+			</if>
+			<if test="pfProductId != null">
+				pf_product_id,
+			</if>
+			<if test="pfProductName != null">
+				pf_product_name,
+			</if>
+			<if test="productMerPrice != null">
+				product_mer_price,
+			</if>
+			<if test="productCount != null">
+				product_count,
+			</if>
+			<if test="productInvoiceStatus != null">
+				product_invoice_status,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="productPreferentialAmount != null">
+				product_preferential_amount,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="pfOrderId != null">
+				#{pfOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductId != null">
+				#{pfProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductName != null">
+				#{pfProductName,jdbcType=VARCHAR},
+			</if>
+			<if test="productMerPrice != null">
+				#{productMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="productCount != null">
+				#{productCount,jdbcType=INTEGER},
+			</if>
+			<if test="productInvoiceStatus != null">
+				#{productInvoiceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productPreferentialAmount != null">
+				#{productPreferentialAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrderProduct">
+		update license_invoice_platform_order_product
+		<set>
+			<if test="pfOrderId != null">
+				pf_order_id = #{pfOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductId != null">
+				pf_product_id = #{pfProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductName != null">
+				pf_product_name = #{pfProductName,jdbcType=VARCHAR},
+			</if>
+			<if test="productMerPrice != null">
+				product_mer_price = #{productMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="productCount != null">
+				product_count = #{productCount,jdbcType=INTEGER},
+			</if>
+			<if test="productInvoiceStatus != null">
+				product_invoice_status =
+				#{productInvoiceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productPreferentialAmount != null">
+				product_preferential_amount =
+				#{productPreferentialAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.wangyin.ebl.po.invoice.LicenseInvoicePlatformOrderProduct">
+		update license_invoice_platform_order_product
+		set
+		pf_order_id = #{pfOrderId,jdbcType=VARCHAR},
+		pf_product_id =
+		#{pfProductId,jdbcType=VARCHAR},
+		pf_product_name =
+		#{pfProductName,jdbcType=VARCHAR},
+		product_mer_price =
+		#{productMerPrice,jdbcType=DECIMAL},
+		product_count =
+		#{productCount,jdbcType=INTEGER},
+		product_invoice_status =
+		#{productInvoiceStatus,jdbcType=VARCHAR},
+		created =
+		#{created,jdbcType=VARCHAR},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		product_preferential_amount =
+		#{productPreferentialAmount,jdbcType=DECIMAL},
+		db_status =
+		#{dbStatus,jdbcType=TINYINT},
+		ent_id = #{entId,jdbcType=VARCHAR}
+		where
+		id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.invoice.LicenseInvoiceProductMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.invoice.LicenseInvoiceProduct">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="invoice_apply_id" jdbcType="VARCHAR" property="invoiceApplyId" />
+		<result column="pf_product_id" jdbcType="VARCHAR" property="pfProductId" />
+		<result column="product_name" jdbcType="VARCHAR" property="productName" />
+		<result column="division" jdbcType="VARCHAR" property="division" />
+		<result column="selling_type" jdbcType="VARCHAR" property="sellingType" />
+		<result column="specifications" jdbcType="VARCHAR" property="specifications" />
+		<result column="tax_classification_code" jdbcType="VARCHAR"
+			property="taxClassificationCode" />
+		<result column="contains_tax_flag" jdbcType="VARCHAR" property="containsTaxFlag" />
+		<result column="item_count" jdbcType="INTEGER" property="itemCount" />
+		<result column="par_tax_rate" jdbcType="DECIMAL" property="parTaxRate" />
+		<result column="product_mer_price" jdbcType="DECIMAL" property="productMerPrice" />
+		<result column="no_contains_tax_amount" jdbcType="DECIMAL"
+			property="noContainsTaxAmount" />
+		<result column="vat_tax_amount" jdbcType="DECIMAL" property="vatTaxAmount" />
+		<result column="adrate_tax_amount" jdbcType="DECIMAL" property="adrateTaxAmount" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="discount_flag" jdbcType="TINYINT" property="discountFlag" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="par_no_contains_tax_amount" jdbcType="DECIMAL"
+			property="parNoContainsTaxAmount" />
+		<result column="par_tax_amount" jdbcType="DECIMAL" property="parTaxAmount" />
+		<result column="par_mer_price" jdbcType="DECIMAL" property="parMerPrice" />
+		<result column="invoice_property" jdbcType="VARCHAR" property="invoiceProperty" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, invoice_apply_id, pf_product_id, product_name, division,
+		selling_type, specifications,
+		tax_classification_code, contains_tax_flag, item_count, par_tax_rate, product_mer_price,
+		no_contains_tax_amount, vat_tax_amount, adrate_tax_amount, created,
+		created_date,
+		modified, modified_date, discount_flag, db_status, ent_id,
+		par_no_contains_tax_amount,
+		par_tax_amount, par_mer_price, invoice_property
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_product
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_product
+		where invoice_apply_id =
+		#{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from license_invoice_product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProduct">
+		insert into license_invoice_product (id, invoice_apply_id, pf_product_id,
+		product_name, division, selling_type,
+		specifications, tax_classification_code,
+		contains_tax_flag, item_count, par_tax_rate,
+		product_mer_price, no_contains_tax_amount, vat_tax_amount,
+		adrate_tax_amount, created, created_date,
+		modified, modified_date, discount_flag,
+		db_status, ent_id, par_no_contains_tax_amount,
+		par_tax_amount, par_mer_price, invoice_property
+		)
+		values (#{id,jdbcType=BIGINT}, #{invoiceApplyId,jdbcType=VARCHAR},
+		#{pfProductId,jdbcType=VARCHAR},
+		#{productName,jdbcType=VARCHAR}, #{division,jdbcType=VARCHAR}, #{sellingType,jdbcType=VARCHAR},
+		#{specifications,jdbcType=VARCHAR},
+		#{taxClassificationCode,jdbcType=VARCHAR},
+		#{containsTaxFlag,jdbcType=VARCHAR}, #{itemCount,jdbcType=INTEGER},
+		#{parTaxRate,jdbcType=DECIMAL},
+		#{productMerPrice,jdbcType=DECIMAL}, #{noContainsTaxAmount,jdbcType=DECIMAL},
+		#{vatTaxAmount,jdbcType=DECIMAL},
+		#{adrateTaxAmount,jdbcType=DECIMAL}, #{created,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP},
+		#{discountFlag,jdbcType=TINYINT},
+		#{dbStatus,jdbcType=TINYINT}, #{entId,jdbcType=VARCHAR},
+		#{parNoContainsTaxAmount,jdbcType=DECIMAL},
+		#{parTaxAmount,jdbcType=DECIMAL}, #{parMerPrice,jdbcType=DECIMAL},
+		#{invoiceProperty,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProduct">
+		insert into license_invoice_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="invoiceApplyId != null">
+				invoice_apply_id,
+			</if>
+			<if test="pfProductId != null">
+				pf_product_id,
+			</if>
+			<if test="productName != null">
+				product_name,
+			</if>
+			<if test="division != null">
+				division,
+			</if>
+			<if test="sellingType != null">
+				selling_type,
+			</if>
+			<if test="specifications != null">
+				specifications,
+			</if>
+			<if test="taxClassificationCode != null">
+				tax_classification_code,
+			</if>
+			<if test="containsTaxFlag != null">
+				contains_tax_flag,
+			</if>
+			<if test="itemCount != null">
+				item_count,
+			</if>
+			<if test="parTaxRate != null">
+				par_tax_rate,
+			</if>
+			<if test="productMerPrice != null">
+				product_mer_price,
+			</if>
+			<if test="noContainsTaxAmount != null">
+				no_contains_tax_amount,
+			</if>
+			<if test="vatTaxAmount != null">
+				vat_tax_amount,
+			</if>
+			<if test="adrateTaxAmount != null">
+				adrate_tax_amount,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="discountFlag != null">
+				discount_flag,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="parNoContainsTaxAmount != null">
+				par_no_contains_tax_amount,
+			</if>
+			<if test="parTaxAmount != null">
+				par_tax_amount,
+			</if>
+			<if test="parMerPrice != null">
+				par_mer_price,
+			</if>
+			<if test="invoiceProperty != null">
+				invoice_property,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="invoiceApplyId != null">
+				#{invoiceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductId != null">
+				#{pfProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="division != null">
+				#{division,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingType != null">
+				#{sellingType,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="taxClassificationCode != null">
+				#{taxClassificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="containsTaxFlag != null">
+				#{containsTaxFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="itemCount != null">
+				#{itemCount,jdbcType=INTEGER},
+			</if>
+			<if test="parTaxRate != null">
+				#{parTaxRate,jdbcType=DECIMAL},
+			</if>
+			<if test="productMerPrice != null">
+				#{productMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="noContainsTaxAmount != null">
+				#{noContainsTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="vatTaxAmount != null">
+				#{vatTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="adrateTaxAmount != null">
+				#{adrateTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="discountFlag != null">
+				#{discountFlag,jdbcType=TINYINT},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="parNoContainsTaxAmount != null">
+				#{parNoContainsTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="parTaxAmount != null">
+				#{parTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="parMerPrice != null">
+				#{parMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="invoiceProperty != null">
+				#{invoiceProperty,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProduct">
+		update license_invoice_product
+		<set>
+			<if test="invoiceApplyId != null">
+				invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="pfProductId != null">
+				pf_product_id = #{pfProductId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="division != null">
+				division = #{division,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingType != null">
+				selling_type = #{sellingType,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				specifications = #{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="taxClassificationCode != null">
+				tax_classification_code = #{taxClassificationCode,jdbcType=VARCHAR},
+			</if>
+			<if test="containsTaxFlag != null">
+				contains_tax_flag = #{containsTaxFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="itemCount != null">
+				item_count = #{itemCount,jdbcType=INTEGER},
+			</if>
+			<if test="parTaxRate != null">
+				par_tax_rate = #{parTaxRate,jdbcType=DECIMAL},
+			</if>
+			<if test="productMerPrice != null">
+				product_mer_price = #{productMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="noContainsTaxAmount != null">
+				no_contains_tax_amount = #{noContainsTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="vatTaxAmount != null">
+				vat_tax_amount = #{vatTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="adrateTaxAmount != null">
+				adrate_tax_amount = #{adrateTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="discountFlag != null">
+				discount_flag = #{discountFlag,jdbcType=TINYINT},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="parNoContainsTaxAmount != null">
+				par_no_contains_tax_amount = #{parNoContainsTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="parTaxAmount != null">
+				par_tax_amount = #{parTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="parMerPrice != null">
+				par_mer_price = #{parMerPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="invoiceProperty != null">
+				invoice_property = #{invoiceProperty,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProduct">
+		update license_invoice_product
+		set invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+		pf_product_id = #{pfProductId,jdbcType=VARCHAR},
+		product_name = #{productName,jdbcType=VARCHAR},
+		division = #{division,jdbcType=VARCHAR},
+		selling_type = #{sellingType,jdbcType=VARCHAR},
+		specifications = #{specifications,jdbcType=VARCHAR},
+		tax_classification_code = #{taxClassificationCode,jdbcType=VARCHAR},
+		contains_tax_flag = #{containsTaxFlag,jdbcType=VARCHAR},
+		item_count = #{itemCount,jdbcType=INTEGER},
+		par_tax_rate = #{parTaxRate,jdbcType=DECIMAL},
+		product_mer_price = #{productMerPrice,jdbcType=DECIMAL},
+		no_contains_tax_amount = #{noContainsTaxAmount,jdbcType=DECIMAL},
+		vat_tax_amount = #{vatTaxAmount,jdbcType=DECIMAL},
+		adrate_tax_amount = #{adrateTaxAmount,jdbcType=DECIMAL},
+		created = #{created,jdbcType=VARCHAR},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		discount_flag = #{discountFlag,jdbcType=TINYINT},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		par_no_contains_tax_amount = #{parNoContainsTaxAmount,jdbcType=DECIMAL},
+		par_tax_amount = #{parTaxAmount,jdbcType=DECIMAL},
+		par_mer_price = #{parMerPrice,jdbcType=DECIMAL},
+		invoice_property = #{invoiceProperty,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.license.LicenseBusinessLicenseMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="ent_name" jdbcType="VARCHAR" property="entName" />
+		<result column="ent_price" jdbcType="DECIMAL" property="entPrice" />
+		<result column="ent_type" jdbcType="VARCHAR" property="entType" />
+		<result column="ent_addr" jdbcType="VARCHAR" property="entAddr" />
+		<result column="ent_range" jdbcType="VARCHAR" property="entRange" />
+		<result column="own_name" jdbcType="VARCHAR" property="ownName" />
+		<result column="own_certid" jdbcType="VARCHAR" property="ownCertid" />
+		<result column="own_certty" jdbcType="VARCHAR" property="ownCertty" />
+		<result column="ent_lic_num" jdbcType="VARCHAR" property="entLicNum" />
+		<result column="ent_lic_path" jdbcType="VARCHAR" property="entLicPath" />
+		<result column="biz_status" jdbcType="VARCHAR" property="bizStatus" />
+		<result column="revoke_status" jdbcType="VARCHAR" property="revokeStatus" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+		<result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+		<result column="account_platform" jdbcType="VARCHAR" property="accountPlatform" />
+		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, ent_name, ent_price, ent_type, ent_addr,
+		ent_range,
+		own_name, own_certid,
+		own_certty, ent_lic_num, ent_lic_path,
+		biz_status, revoke_status, db_status,
+		created_date,
+		created,
+		modified_date, modified, tax_no, ent_id, bank_name, bank_account,
+		account_platform
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_business_license
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_business_license
+		where user_id =
+		#{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_business_license
+		where ent_id =
+		#{ent_id,jdbcType=VARCHAR}
+	</select>
+		<select id="selectByEntName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_business_license
+		where ent_name =
+		#{ent_name,jdbcType=VARCHAR}
+	</select>
+			<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_business_license
+		where tax_no =
+		#{tax_no,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_business_license l, license_order_info r
+		where
+		l.user_id =
+		r.user_id
+		and r.biz_id = #{biz_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_business_license l, license_order_info r
+		where
+		l.user_id =
+		r.user_id
+		and r.order_no = #{order_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_business_license
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+		insert into
+		license_business_license (id, user_id, ent_name,
+		ent_price, ent_type,
+		ent_addr,
+		ent_range, own_name, own_certid,
+		own_certty, ent_lic_num,
+		ent_lic_path,
+		biz_status, revoke_status, db_status,
+		created_date,
+		created, modified_date,
+		modified, tax_no, ent_id,
+		bank_name,
+		bank_account, account_platform
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{userId,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR},
+		#{entPrice,jdbcType=DECIMAL}, #{entType,jdbcType=VARCHAR},
+		#{entAddr,jdbcType=VARCHAR},
+		#{entRange,jdbcType=VARCHAR},
+		#{ownName,jdbcType=VARCHAR},
+		#{ownCertid,jdbcType=VARCHAR},
+		#{ownCertty,jdbcType=VARCHAR}, #{entLicNum,jdbcType=VARCHAR},
+		#{entLicPath,jdbcType=VARCHAR},
+		#{bizStatus,jdbcType=VARCHAR},
+		#{revokeStatus,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR},
+		#{taxNo,jdbcType=VARCHAR},
+		#{entId,jdbcType=VARCHAR},
+		#{bankName,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR},
+		#{accountPlatform,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+		insert into license_business_license
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="entName != null">
+				ent_name,
+			</if>
+			<if test="entPrice != null">
+				ent_price,
+			</if>
+			<if test="entType != null">
+				ent_type,
+			</if>
+			<if test="entAddr != null">
+				ent_addr,
+			</if>
+			<if test="entRange != null">
+				ent_range,
+			</if>
+			<if test="ownName != null">
+				own_name,
+			</if>
+			<if test="ownCertid != null">
+				own_certid,
+			</if>
+			<if test="ownCertty != null">
+				own_certty,
+			</if>
+			<if test="entLicNum != null">
+				ent_lic_num,
+			</if>
+			<if test="entLicPath != null">
+				ent_lic_path,
+			</if>
+			<if test="bizStatus != null">
+				biz_status,
+			</if>
+			<if test="revokeStatus != null">
+				revoke_status,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="taxNo != null">
+				tax_no,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="bankName != null">
+				bank_name,
+			</if>
+			<if test="bankAccount != null">
+				bank_account,
+			</if>
+			<if test="accountPlatform != null">
+				account_platform,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="entName != null">
+				#{entName,jdbcType=VARCHAR},
+			</if>
+			<if test="entPrice != null">
+				#{entPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="entType != null">
+				#{entType,jdbcType=VARCHAR},
+			</if>
+			<if test="entAddr != null">
+				#{entAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="entRange != null">
+				#{entRange,jdbcType=VARCHAR},
+			</if>
+			<if test="ownName != null">
+				#{ownName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertid != null">
+				#{ownCertid,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertty != null">
+				#{ownCertty,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicNum != null">
+				#{entLicNum,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicPath != null">
+				#{entLicPath,jdbcType=VARCHAR},
+			</if>
+			<if test="bizStatus != null">
+				#{bizStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="revokeStatus != null">
+				#{revokeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="taxNo != null">
+				#{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				#{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccount != null">
+				#{bankAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPlatform != null">
+				#{accountPlatform,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+		update license_business_license
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="entName != null">
+				ent_name = #{entName,jdbcType=VARCHAR},
+			</if>
+			<if test="entPrice != null">
+				ent_price = #{entPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="entType != null">
+				ent_type = #{entType,jdbcType=VARCHAR},
+			</if>
+			<if test="entAddr != null">
+				ent_addr = #{entAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="entRange != null">
+				ent_range = #{entRange,jdbcType=VARCHAR},
+			</if>
+			<if test="ownName != null">
+				own_name = #{ownName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertid != null">
+				own_certid = #{ownCertid,jdbcType=VARCHAR},
+			</if>
+			<if test="ownCertty != null">
+				own_certty = #{ownCertty,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicNum != null">
+				ent_lic_num = #{entLicNum,jdbcType=VARCHAR},
+			</if>
+			<if test="entLicPath != null">
+				ent_lic_path = #{entLicPath,jdbcType=VARCHAR},
+			</if>
+			<if test="bizStatus != null">
+				biz_status = #{bizStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="revokeStatus != null">
+				revoke_status = #{revokeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="taxNo != null">
+				tax_no = #{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				bank_name = #{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccount != null">
+				bank_account = #{bankAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPlatform != null">
+				account_platform = #{accountPlatform,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+		update
+		license_business_license
+		set user_id = #{userId,jdbcType=VARCHAR},
+		ent_name = #{entName,jdbcType=VARCHAR},
+		ent_price =
+		#{entPrice,jdbcType=DECIMAL},
+		ent_type = #{entType,jdbcType=VARCHAR},
+		ent_addr = #{entAddr,jdbcType=VARCHAR},
+		ent_range =
+		#{entRange,jdbcType=VARCHAR},
+		own_name = #{ownName,jdbcType=VARCHAR},
+		own_certid = #{ownCertid,jdbcType=VARCHAR},
+		own_certty =
+		#{ownCertty,jdbcType=VARCHAR},
+		ent_lic_num =
+		#{entLicNum,jdbcType=VARCHAR},
+		ent_lic_path =
+		#{entLicPath,jdbcType=VARCHAR},
+		biz_status =
+		#{bizStatus,jdbcType=VARCHAR},
+		revoke_status =
+		#{revokeStatus,jdbcType=VARCHAR},
+		db_status =
+		#{dbStatus,jdbcType=TINYINT},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR},
+		tax_no = #{taxNo,jdbcType=VARCHAR},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		bank_name =
+		#{bankName,jdbcType=VARCHAR},
+		bank_account =
+		#{bankAccount,jdbcType=VARCHAR},
+		account_platform =
+		#{accountPlatform,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

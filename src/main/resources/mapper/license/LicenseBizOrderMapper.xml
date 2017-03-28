@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.license.LicenseBizOrderMapper">
+  <resultMap id="BaseResultMap" type="com.wangyin.ebl.po.license.LicenseBizOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+    <result column="biz_status" jdbcType="VARCHAR" property="bizStatus" />
+    <result column="biz_start" jdbcType="TIMESTAMP" property="bizStart" />
+    <result column="biz_end" jdbcType="TIMESTAMP" property="bizEnd" />
+    <result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="modified" jdbcType="VARCHAR" property="modified" />
+    		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, biz_id, biz_status, biz_start, biz_end, db_status, created_date, created, 
+    modified_date, modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from license_biz_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_biz_order
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_biz_order
+		where biz_id = #{biz_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_biz_order l, license_order_info r where
+		l.user_id =
+		r.user_id
+		and r.order_no = #{order_no,jdbcType=VARCHAR}
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from license_biz_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangyin.ebl.po.license.LicenseBizOrder">
+    insert into license_biz_order (id, user_id, biz_id, 
+      biz_status, biz_start, biz_end, 
+      db_status, created_date, created, 
+      modified_date, modified)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{bizId,jdbcType=VARCHAR}, 
+      #{bizStatus,jdbcType=VARCHAR}, #{bizStart,jdbcType=TIMESTAMP}, #{bizEnd,jdbcType=TIMESTAMP}, 
+      #{dbStatus,jdbcType=TINYINT}, #{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, 
+      #{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyin.ebl.po.license.LicenseBizOrder">
+    insert into license_biz_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="bizStatus != null">
+        biz_status,
+      </if>
+      <if test="bizStart != null">
+        biz_start,
+      </if>
+      <if test="bizEnd != null">
+        biz_end,
+      </if>
+      <if test="dbStatus != null">
+        db_status,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStatus != null">
+        #{bizStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStart != null">
+        #{bizStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizEnd != null">
+        #{bizEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbStatus != null">
+        #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.license.LicenseBizOrder">
+    update license_biz_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStatus != null">
+        biz_status = #{bizStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStart != null">
+        biz_start = #{bizStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizEnd != null">
+        biz_end = #{bizEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbStatus != null">
+        db_status = #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.license.LicenseBizOrder">
+    update license_biz_order
+    set user_id = #{userId,jdbcType=VARCHAR},
+      biz_id = #{bizId,jdbcType=VARCHAR},
+      biz_status = #{bizStatus,jdbcType=VARCHAR},
+      biz_start = #{bizStart,jdbcType=TIMESTAMP},
+      biz_end = #{bizEnd,jdbcType=TIMESTAMP},
+      db_status = #{dbStatus,jdbcType=TINYINT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=VARCHAR},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

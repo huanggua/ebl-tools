@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<title>营销平台活动查询工具</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!-- fonts -->
+
+		<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<script src="assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="background:#fff">
+		<div class="page-content">
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<form class="form-inline">
+						<fieldset id="form-field-set">
+							  <div class="form-group">
+							  	<label class="sr-only" for="for-datasource">datasource</label>
+							    <select class="form-control" name="datasource" id="datasource">
+								  <option>闭环</option>
+								  <option>功能</option>
+								  <option>黄村</option>
+								  <option>CI</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+							  		<div class="input-group">
+										<input type="text" class="form-control search-query" placeholder="活动入口ID">
+										<span class="input-group-btn">
+											<button type="button" id="queryById" class="btn btn-purple btn-sm" data-loading-text="searching">
+												<i class="icon-search icon-on-right bigger-110"></i>
+											</button>
+										</span>
+									 </div>
+							  </div>
+							  
+							  <div class="form-group">
+						  		<div class="input-group">
+									<input type="text" class="form-control search-query data-popover" placeholder="where case"
+									data-toggle="popover" data-trigger="focus" title="提示" 
+									data-content="通过where语句查询,示例: entrance_id = '20151106000000001' and entrance_type='03'" data-placement="bottom">
+									<span class="input-group-btn">
+										<button type="button" id="queryByWhereCase" class="btn btn-success btn-sm" data-loading-text="searching">
+											<i class="icon-search icon-on-right bigger-110"></i>
+										</button>
+									</span>
+								 </div>
+							  </div>
+						</fieldset>
+					</form>
+					<div class="space-6"></div>
+					
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="table-header" >PROMOTION_ENTRANCE_INFO</div>
+							<div class="table-responsive">
+								<table id="query-table" class="table table-striped table-bordered table-hover">
+									<thead id="reuslt-thead">
+									</thead>
+									<tbody id="result-tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- PAGE CONTENT ENDS -->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+		<!-- basic scripts -->
+		
+		<!--[if !IE]> -->
+
+		<script src="assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+		<script type="text/javascript">
+		 window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+		</script>
+		<![endif]-->
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="assets/app/js/query.js"></script>
+		<!-- ace scripts -->
+		
+		<script src="assets/js/ace-elements.min.js"></script>
+		<script src="assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+				//init_dataTable();
+				$('.data-popover').popover('hide');
+				$('#queryById').click(function () {
+					var id= $('#queryId').val();
+					if(null===id || ""===id.trim())
+						return false;
+					$.ajax({
+						type : 'post',
+						dateType:'json',
+						url : '' + '/query/',
+						contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+						data :{id:id},
+						timeout : 15000,
+						beforeSend : function(XMLHttpRequest) {
+						},
+						cache : false,
+						success : function(r) {
+							var obj = $.parseJSON(r);
+							var htmlThead = obj.htmlThead;
+							var htmlTbody = obj.htmlTobady;
+							if (obj.success) {
+								thead.html(htmlThead);
+								tbody.html(htmlTbody);
+								init_dataTable();
+							} else {
+								//错误提示
+								
+							}
+						},
+						error: function (xmlHttpRequest) {
+							
+				         },
+					});
+				    var $btn = $(this).button('loading');
+				    disableForm();
+				    
+				    $btn.button('reset');
+				    enableForm();
+				});
+				
+				$('#queryByWhereCase').click(function () {
+				    var $btn = $(this).button('loading');
+				    $btn.button('reset');
+				    
+				});
+			});
+		</script>
+	<!-- <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div> -->
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+		aria-labelledby="confirmModalLabal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">提示</h4>
+				</div>
+				<div class="modal-body" id="confir-message"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	
+</body>
+</html>

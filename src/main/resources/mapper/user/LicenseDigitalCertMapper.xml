@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.user.LicenseDigitalCertMapper">
+  <resultMap id="BaseResultMap" type="com.wangyin.ebl.po.user.LicenseDigitalCert">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+    <result column="envsn" jdbcType="VARCHAR" property="envsn" />
+    <result column="envsncode" jdbcType="VARCHAR" property="envsncode" />
+    <result column="alg" jdbcType="VARCHAR" property="alg" />
+    <result column="dt" jdbcType="VARCHAR" property="dt" />
+    <result column="tt" jdbcType="VARCHAR" property="tt" />
+    <result column="error_code" jdbcType="VARCHAR" property="errorCode" />
+    <result column="bjcatradesn" jdbcType="VARCHAR" property="bjcatradesn" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="down_rs" jdbcType="VARCHAR" property="downRs" />
+    <result column="down_ec" jdbcType="VARCHAR" property="downEc" />
+    <result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="modified" jdbcType="VARCHAR" property="modified" />
+        
+    <association property="licenseUserLogin" javaType="com.wangyin.ebl.po.user.LicenseUserLogin">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="user_id" property="userId"/>
+     </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, biz_id, envsn, envsncode, alg, dt, tt, error_code, bjcatradesn, result, 
+    down_rs, down_ec, db_status, created_date, created, modified_date, modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from license_digital_cert
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from license_digital_cert
+    where user_id = #{id,jdbcType=VARCHAR}
+  </select>
+            
+   <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+   *
+    from license_digital_cert b, license_user_login l where b.user_id = l.user_id
+    and l.login_name = #{login_name,jdbcType=VARCHAR}
+  </select>
+    
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from license_digital_cert
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangyin.ebl.po.user.LicenseDigitalCert">
+    insert into license_digital_cert (id, user_id, biz_id, 
+      envsn, envsncode, alg, 
+      dt, tt, error_code, 
+      bjcatradesn, result, down_rs, 
+      down_ec, db_status, created_date, 
+      created, modified_date, modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{bizId,jdbcType=VARCHAR}, 
+      #{envsn,jdbcType=VARCHAR}, #{envsncode,jdbcType=VARCHAR}, #{alg,jdbcType=VARCHAR}, 
+      #{dt,jdbcType=VARCHAR}, #{tt,jdbcType=VARCHAR}, #{errorCode,jdbcType=VARCHAR}, 
+      #{bjcatradesn,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{downRs,jdbcType=VARCHAR}, 
+      #{downEc,jdbcType=VARCHAR}, #{dbStatus,jdbcType=TINYINT}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyin.ebl.po.user.LicenseDigitalCert">
+    insert into license_digital_cert
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="envsn != null">
+        envsn,
+      </if>
+      <if test="envsncode != null">
+        envsncode,
+      </if>
+      <if test="alg != null">
+        alg,
+      </if>
+      <if test="dt != null">
+        dt,
+      </if>
+      <if test="tt != null">
+        tt,
+      </if>
+      <if test="errorCode != null">
+        error_code,
+      </if>
+      <if test="bjcatradesn != null">
+        bjcatradesn,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="downRs != null">
+        down_rs,
+      </if>
+      <if test="downEc != null">
+        down_ec,
+      </if>
+      <if test="dbStatus != null">
+        db_status,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="envsn != null">
+        #{envsn,jdbcType=VARCHAR},
+      </if>
+      <if test="envsncode != null">
+        #{envsncode,jdbcType=VARCHAR},
+      </if>
+      <if test="alg != null">
+        #{alg,jdbcType=VARCHAR},
+      </if>
+      <if test="dt != null">
+        #{dt,jdbcType=VARCHAR},
+      </if>
+      <if test="tt != null">
+        #{tt,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bjcatradesn != null">
+        #{bjcatradesn,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="downRs != null">
+        #{downRs,jdbcType=VARCHAR},
+      </if>
+      <if test="downEc != null">
+        #{downEc,jdbcType=VARCHAR},
+      </if>
+      <if test="dbStatus != null">
+        #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.user.LicenseDigitalCert">
+    update license_digital_cert
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="envsn != null">
+        envsn = #{envsn,jdbcType=VARCHAR},
+      </if>
+      <if test="envsncode != null">
+        envsncode = #{envsncode,jdbcType=VARCHAR},
+      </if>
+      <if test="alg != null">
+        alg = #{alg,jdbcType=VARCHAR},
+      </if>
+      <if test="dt != null">
+        dt = #{dt,jdbcType=VARCHAR},
+      </if>
+      <if test="tt != null">
+        tt = #{tt,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bjcatradesn != null">
+        bjcatradesn = #{bjcatradesn,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="downRs != null">
+        down_rs = #{downRs,jdbcType=VARCHAR},
+      </if>
+      <if test="downEc != null">
+        down_ec = #{downEc,jdbcType=VARCHAR},
+      </if>
+      <if test="dbStatus != null">
+        db_status = #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.user.LicenseDigitalCert">
+    update license_digital_cert
+    set user_id = #{userId,jdbcType=VARCHAR},
+      biz_id = #{bizId,jdbcType=VARCHAR},
+      envsn = #{envsn,jdbcType=VARCHAR},
+      envsncode = #{envsncode,jdbcType=VARCHAR},
+      alg = #{alg,jdbcType=VARCHAR},
+      dt = #{dt,jdbcType=VARCHAR},
+      tt = #{tt,jdbcType=VARCHAR},
+      error_code = #{errorCode,jdbcType=VARCHAR},
+      bjcatradesn = #{bjcatradesn,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      down_rs = #{downRs,jdbcType=VARCHAR},
+      down_ec = #{downEc,jdbcType=VARCHAR},
+      db_status = #{dbStatus,jdbcType=TINYINT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=VARCHAR},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

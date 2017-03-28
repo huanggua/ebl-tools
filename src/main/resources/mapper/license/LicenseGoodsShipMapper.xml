@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.license.LicenseGoodsShipMapper">
+  <resultMap id="BaseResultMap" type="com.wangyin.ebl.po.license.LicenseGoodsShip">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+    <result column="ship_name" jdbcType="VARCHAR" property="shipName" />
+    <result column="ship_tel" jdbcType="VARCHAR" property="shipTel" />
+    <result column="ship_addr" jdbcType="VARCHAR" property="shipAddr" />
+    <result column="ship_code" jdbcType="VARCHAR" property="shipCode" />
+    <result column="ship_status" jdbcType="VARCHAR" property="shipStatus" />
+    <result column="ship_sender" jdbcType="VARCHAR" property="shipSender" />
+    <result column="ship_comp" jdbcType="VARCHAR" property="shipComp" />
+    <result column="ship_num" jdbcType="VARCHAR" property="shipNum" />
+    <result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="modified" jdbcType="VARCHAR" property="modified" />
+    		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, biz_id, ship_name, ship_tel, ship_addr, ship_code, ship_status, ship_sender, 
+    ship_comp, ship_num, db_status, created_date, created, modified_date, modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from license_goods_ship
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_goods_ship
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_goods_ship
+		where biz_id = #{biz_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_goods_ship l, license_order_info r where
+		l.user_id =
+		r.user_id
+		and r.order_no = #{order_no,jdbcType=VARCHAR}
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from license_goods_ship
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangyin.ebl.po.license.LicenseGoodsShip">
+    insert into license_goods_ship (id, user_id, biz_id, 
+      ship_name, ship_tel, ship_addr, 
+      ship_code, ship_status, ship_sender, 
+      ship_comp, ship_num, db_status, 
+      created_date, created, modified_date, 
+      modified)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{bizId,jdbcType=VARCHAR}, 
+      #{shipName,jdbcType=VARCHAR}, #{shipTel,jdbcType=VARCHAR}, #{shipAddr,jdbcType=VARCHAR}, 
+      #{shipCode,jdbcType=VARCHAR}, #{shipStatus,jdbcType=VARCHAR}, #{shipSender,jdbcType=VARCHAR}, 
+      #{shipComp,jdbcType=VARCHAR}, #{shipNum,jdbcType=VARCHAR}, #{dbStatus,jdbcType=TINYINT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, 
+      #{modified,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyin.ebl.po.license.LicenseGoodsShip">
+    insert into license_goods_ship
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="shipName != null">
+        ship_name,
+      </if>
+      <if test="shipTel != null">
+        ship_tel,
+      </if>
+      <if test="shipAddr != null">
+        ship_addr,
+      </if>
+      <if test="shipCode != null">
+        ship_code,
+      </if>
+      <if test="shipStatus != null">
+        ship_status,
+      </if>
+      <if test="shipSender != null">
+        ship_sender,
+      </if>
+      <if test="shipComp != null">
+        ship_comp,
+      </if>
+      <if test="shipNum != null">
+        ship_num,
+      </if>
+      <if test="dbStatus != null">
+        db_status,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTel != null">
+        #{shipTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddr != null">
+        #{shipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shipCode != null">
+        #{shipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shipStatus != null">
+        #{shipStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shipSender != null">
+        #{shipSender,jdbcType=VARCHAR},
+      </if>
+      <if test="shipComp != null">
+        #{shipComp,jdbcType=VARCHAR},
+      </if>
+      <if test="shipNum != null">
+        #{shipNum,jdbcType=VARCHAR},
+      </if>
+      <if test="dbStatus != null">
+        #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.license.LicenseGoodsShip">
+    update license_goods_ship
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null">
+        ship_name = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="shipTel != null">
+        ship_tel = #{shipTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shipAddr != null">
+        ship_addr = #{shipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shipCode != null">
+        ship_code = #{shipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shipStatus != null">
+        ship_status = #{shipStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="shipSender != null">
+        ship_sender = #{shipSender,jdbcType=VARCHAR},
+      </if>
+      <if test="shipComp != null">
+        ship_comp = #{shipComp,jdbcType=VARCHAR},
+      </if>
+      <if test="shipNum != null">
+        ship_num = #{shipNum,jdbcType=VARCHAR},
+      </if>
+      <if test="dbStatus != null">
+        db_status = #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.license.LicenseGoodsShip">
+    update license_goods_ship
+    set user_id = #{userId,jdbcType=VARCHAR},
+      biz_id = #{bizId,jdbcType=VARCHAR},
+      ship_name = #{shipName,jdbcType=VARCHAR},
+      ship_tel = #{shipTel,jdbcType=VARCHAR},
+      ship_addr = #{shipAddr,jdbcType=VARCHAR},
+      ship_code = #{shipCode,jdbcType=VARCHAR},
+      ship_status = #{shipStatus,jdbcType=VARCHAR},
+      ship_sender = #{shipSender,jdbcType=VARCHAR},
+      ship_comp = #{shipComp,jdbcType=VARCHAR},
+      ship_num = #{shipNum,jdbcType=VARCHAR},
+      db_status = #{dbStatus,jdbcType=TINYINT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=VARCHAR},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

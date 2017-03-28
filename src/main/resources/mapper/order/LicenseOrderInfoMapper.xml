@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.order.LicenseOrderInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.order.LicenseOrderInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+		<result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+		<result column="order_name" jdbcType="VARCHAR" property="orderName" />
+		<result column="order_des" jdbcType="VARCHAR" property="orderDes" />
+		<result column="order_price" jdbcType="DECIMAL" property="orderPrice" />
+		<result column="confirm_refund_amount" jdbcType="DECIMAL"
+			property="confirmRefundAmount" />
+		<result column="refund_confirm" jdbcType="VARCHAR" property="refundConfirm" />
+		<result column="pay_status" jdbcType="VARCHAR" property="payStatus" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="callback_type" jdbcType="VARCHAR" property="callbackType" />
+		<association property="licenseBusinessLicense"
+			javaType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="tax_no" property="taxNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, order_no, biz_id, biz_type, order_name,
+		order_des,
+		order_price, confirm_refund_amount,
+		refund_confirm,
+		pay_status, remark, db_status, created_date, created, modified_date,
+		modified, ent_id, callback_type
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_info
+		where biz_id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_info
+		where user_id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_info
+		where order_no = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_info
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_order_info l, license_business_license r
+		where l.user_id =
+		l.user_id
+		and r.tax_no = #{tax_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_order_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+		insert into license_order_info
+		(id, user_id, order_no,
+		biz_id, biz_type, order_name,
+		order_des,
+		order_price, confirm_refund_amount,
+		refund_confirm, pay_status, remark,
+		db_status, created_date, created,
+		modified_date, modified, ent_id,
+		callback_type)
+		values (#{id,jdbcType=INTEGER},
+		#{userId,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=VARCHAR},
+		#{bizId,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR},
+		#{orderName,jdbcType=VARCHAR},
+		#{orderDes,jdbcType=VARCHAR},
+		#{orderPrice,jdbcType=DECIMAL},
+		#{confirmRefundAmount,jdbcType=DECIMAL},
+		#{refundConfirm,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR},
+		#{entId,jdbcType=VARCHAR},
+		#{callbackType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+		insert into license_order_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="bizId != null">
+				biz_id,
+			</if>
+			<if test="bizType != null">
+				biz_type,
+			</if>
+			<if test="orderName != null">
+				order_name,
+			</if>
+			<if test="orderDes != null">
+				order_des,
+			</if>
+			<if test="orderPrice != null">
+				order_price,
+			</if>
+			<if test="confirmRefundAmount != null">
+				confirm_refund_amount,
+			</if>
+			<if test="refundConfirm != null">
+				refund_confirm,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="callbackType != null">
+				callback_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bizId != null">
+				#{bizId,jdbcType=VARCHAR},
+			</if>
+			<if test="bizType != null">
+				#{bizType,jdbcType=VARCHAR},
+			</if>
+			<if test="orderName != null">
+				#{orderName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDes != null">
+				#{orderDes,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPrice != null">
+				#{orderPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="confirmRefundAmount != null">
+				#{confirmRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundConfirm != null">
+				#{refundConfirm,jdbcType=VARCHAR},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackType != null">
+				#{callbackType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+		update license_order_info
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bizId != null">
+				biz_id = #{bizId,jdbcType=VARCHAR},
+			</if>
+			<if test="bizType != null">
+				biz_type = #{bizType,jdbcType=VARCHAR},
+			</if>
+			<if test="orderName != null">
+				order_name = #{orderName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDes != null">
+				order_des = #{orderDes,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPrice != null">
+				order_price = #{orderPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="confirmRefundAmount != null">
+				confirm_refund_amount =
+				#{confirmRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundConfirm != null">
+				refund_confirm = #{refundConfirm,jdbcType=VARCHAR},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="callbackType != null">
+				callback_type = #{callbackType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+		update
+		license_order_info
+		set user_id = #{userId,jdbcType=VARCHAR},
+		order_no =
+		#{orderNo,jdbcType=VARCHAR},
+		biz_id = #{bizId,jdbcType=VARCHAR},
+		biz_type = #{bizType,jdbcType=VARCHAR},
+		order_name =
+		#{orderName,jdbcType=VARCHAR},
+		order_des =
+		#{orderDes,jdbcType=VARCHAR},
+		order_price =
+		#{orderPrice,jdbcType=DECIMAL},
+		confirm_refund_amount =
+		#{confirmRefundAmount,jdbcType=DECIMAL},
+		refund_confirm =
+		#{refundConfirm,jdbcType=VARCHAR},
+		pay_status =
+		#{payStatus,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		callback_type = #{callbackType,jdbcType=VARCHAR}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+</mapper>

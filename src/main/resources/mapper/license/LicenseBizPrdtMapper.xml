@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.license.LicenseBizPrdtMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.license.LicenseBizPrdt">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+		<result column="prdt_key" jdbcType="VARCHAR" property="prdtKey" />
+		<result column="prdt_price" jdbcType="DECIMAL" property="prdtPrice" />
+		<result column="prdt_status" jdbcType="VARCHAR" property="prdtStatus" />
+		<result column="prdt_pay_flag" jdbcType="TINYINT" property="prdtPayFlag" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, biz_id, prdt_key, prdt_price, prdt_status, prdt_pay_flag,
+		db_status,
+		created_date, created, modified_date, modified
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_biz_prdt
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_biz_prdt
+		where user_id = #{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_biz_prdt
+		where biz_id = #{biz_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_biz_prdt l, license_order_info r where
+		l.user_id =
+		r.user_id
+		and r.order_no = #{order_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from license_biz_prdt
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.license.LicenseBizPrdt">
+		insert into license_biz_prdt (id, user_id, biz_id,
+		prdt_key, prdt_price, prdt_status,
+		prdt_pay_flag, db_status, created_date,
+		created, modified_date, modified
+		)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR},
+		#{bizId,jdbcType=VARCHAR},
+		#{prdtKey,jdbcType=VARCHAR}, #{prdtPrice,jdbcType=DECIMAL}, #{prdtStatus,jdbcType=VARCHAR},
+		#{prdtPayFlag,jdbcType=TINYINT}, #{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{created,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.license.LicenseBizPrdt">
+		insert into license_biz_prdt
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="bizId != null">
+				biz_id,
+			</if>
+			<if test="prdtKey != null">
+				prdt_key,
+			</if>
+			<if test="prdtPrice != null">
+				prdt_price,
+			</if>
+			<if test="prdtStatus != null">
+				prdt_status,
+			</if>
+			<if test="prdtPayFlag != null">
+				prdt_pay_flag,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="bizId != null">
+				#{bizId,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtKey != null">
+				#{prdtKey,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtPrice != null">
+				#{prdtPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="prdtStatus != null">
+				#{prdtStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtPayFlag != null">
+				#{prdtPayFlag,jdbcType=TINYINT},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.license.LicenseBizPrdt">
+		update license_biz_prdt
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="bizId != null">
+				biz_id = #{bizId,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtKey != null">
+				prdt_key = #{prdtKey,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtPrice != null">
+				prdt_price = #{prdtPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="prdtStatus != null">
+				prdt_status = #{prdtStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="prdtPayFlag != null">
+				prdt_pay_flag = #{prdtPayFlag,jdbcType=TINYINT},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.license.LicenseBizPrdt">
+		update license_biz_prdt
+		set user_id = #{userId,jdbcType=VARCHAR},
+		biz_id = #{bizId,jdbcType=VARCHAR},
+		prdt_key = #{prdtKey,jdbcType=VARCHAR},
+		prdt_price = #{prdtPrice,jdbcType=DECIMAL},
+		prdt_status = #{prdtStatus,jdbcType=VARCHAR},
+		prdt_pay_flag = #{prdtPayFlag,jdbcType=TINYINT},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		created = #{created,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

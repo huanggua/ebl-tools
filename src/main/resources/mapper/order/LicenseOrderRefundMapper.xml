@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.order.LicenseOrderRefundMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.order.LicenseOrderRefund">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="out_id" jdbcType="VARCHAR" property="outId" />
+		<result column="pay_id" jdbcType="VARCHAR" property="payId" />
+		<result column="refund_id" jdbcType="VARCHAR" property="refundId" />
+		<result column="apply_refund_amount" jdbcType="DECIMAL"
+			property="applyRefundAmount" />
+		<result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+		<result column="refund_recv_account" jdbcType="VARCHAR"
+			property="refundRecvAccount" />
+		<result column="return_refund_no" jdbcType="VARCHAR" property="returnRefundNo" />
+		<result column="refund_status" jdbcType="VARCHAR" property="refundStatus" />
+		<result column="return_code" jdbcType="VARCHAR" property="returnCode" />
+		<result column="return_msg" jdbcType="VARCHAR" property="returnMsg" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+
+		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_no, out_id, pay_id, refund_id,
+		apply_refund_amount,
+		refund_amount, refund_recv_account,
+		return_refund_no, refund_status, return_code, return_msg, remark,
+		db_status,
+		created_date,
+		created, modified_date, modified
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_refund
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_refund
+		where biz_id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_order_refund b, license_order_info l
+		where b.order_no =
+		l.order_no
+		and l.user_id =
+		#{user_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_refund
+		where order_no = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_order_refund
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.order.LicenseOrderRefund">
+		insert into
+		license_order_refund (id, order_no, out_id,
+		pay_id, refund_id,
+		apply_refund_amount,
+		refund_amount, refund_recv_account,
+		return_refund_no,
+		refund_status, return_code, return_msg,
+		remark,
+		db_status, created_date,
+		created, modified_date, modified
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR},
+		#{outId,jdbcType=VARCHAR},
+		#{payId,jdbcType=VARCHAR},
+		#{refundId,jdbcType=VARCHAR}, #{applyRefundAmount,jdbcType=DECIMAL},
+		#{refundAmount,jdbcType=DECIMAL},
+		#{refundRecvAccount,jdbcType=VARCHAR},
+		#{returnRefundNo,jdbcType=VARCHAR},
+		#{refundStatus,jdbcType=VARCHAR},
+		#{returnCode,jdbcType=VARCHAR}, #{returnMsg,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderRefund">
+		insert into license_order_refund
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="outId != null">
+				out_id,
+			</if>
+			<if test="payId != null">
+				pay_id,
+			</if>
+			<if test="refundId != null">
+				refund_id,
+			</if>
+			<if test="applyRefundAmount != null">
+				apply_refund_amount,
+			</if>
+			<if test="refundAmount != null">
+				refund_amount,
+			</if>
+			<if test="refundRecvAccount != null">
+				refund_recv_account,
+			</if>
+			<if test="returnRefundNo != null">
+				return_refund_no,
+			</if>
+			<if test="refundStatus != null">
+				refund_status,
+			</if>
+			<if test="returnCode != null">
+				return_code,
+			</if>
+			<if test="returnMsg != null">
+				return_msg,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outId != null">
+				#{outId,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				#{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="refundId != null">
+				#{refundId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyRefundAmount != null">
+				#{applyRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundAmount != null">
+				#{refundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundRecvAccount != null">
+				#{refundRecvAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="returnRefundNo != null">
+				#{returnRefundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundStatus != null">
+				#{refundStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="returnCode != null">
+				#{returnCode,jdbcType=VARCHAR},
+			</if>
+			<if test="returnMsg != null">
+				#{returnMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderRefund">
+		update license_order_refund
+		<set>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outId != null">
+				out_id = #{outId,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				pay_id = #{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="refundId != null">
+				refund_id = #{refundId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyRefundAmount != null">
+				apply_refund_amount =
+				#{applyRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundAmount != null">
+				refund_amount = #{refundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="refundRecvAccount != null">
+				refund_recv_account =
+				#{refundRecvAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="returnRefundNo != null">
+				return_refund_no = #{returnRefundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundStatus != null">
+				refund_status = #{refundStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="returnCode != null">
+				return_code = #{returnCode,jdbcType=VARCHAR},
+			</if>
+			<if test="returnMsg != null">
+				return_msg = #{returnMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.order.LicenseOrderRefund">
+		update
+		license_order_refund
+		set order_no = #{orderNo,jdbcType=VARCHAR},
+		out_id
+		= #{outId,jdbcType=VARCHAR},
+		pay_id = #{payId,jdbcType=VARCHAR},
+		refund_id = #{refundId,jdbcType=VARCHAR},
+		apply_refund_amount =
+		#{applyRefundAmount,jdbcType=DECIMAL},
+		refund_amount =
+		#{refundAmount,jdbcType=DECIMAL},
+		refund_recv_account =
+		#{refundRecvAccount,jdbcType=VARCHAR},
+		return_refund_no =
+		#{returnRefundNo,jdbcType=VARCHAR},
+		refund_status =
+		#{refundStatus,jdbcType=VARCHAR},
+		return_code =
+		#{returnCode,jdbcType=VARCHAR},
+		return_msg =
+		#{returnMsg,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

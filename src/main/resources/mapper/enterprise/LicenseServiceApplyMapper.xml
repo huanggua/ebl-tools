@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.enterprise.LicenseServiceApplyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="service_apply_id" jdbcType="VARCHAR" property="serviceApplyId" />
+		<result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+		<result column="service_platform" jdbcType="VARCHAR" property="servicePlatform" />
+		<result column="service_type" jdbcType="VARCHAR" property="serviceType" />
+		<result column="service_apply_status" jdbcType="VARCHAR"
+			property="serviceApplyStatus" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="apply_cert_path" jdbcType="VARCHAR" property="applyCertPath" />
+		<result column="confirmed" jdbcType="VARCHAR" property="confirmed" />
+
+		<association property="licenseEntLogin"
+			javaType="com.wangyin.ebl.po.enterprise.LicenseEntLogin">
+			<id column="id" property="id" />
+			<result column="ent_id" property="entId" />
+			<result column="ent_name" property="entName" />
+		</association>
+
+		<association property="licenseInvoiceInfo"
+			javaType="com.wangyin.ebl.po.invoice.LicenseInvoiceInfo">
+			<id column="id" property="id" />
+			<result column="ent_id" property="entId" />
+			<result column="invoice_apply_id" property="invoiceApplyId" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, service_apply_id, tax_no, service_platform,
+		service_type,
+		service_apply_status,
+		remark, db_status, created_date,
+		created, modified_date, modified, ent_id,
+		apply_cert_path,
+		confirmed
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_service_apply
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_service_apply
+		where ent_id = #{ent_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_service_apply
+		where tax_no = #{tax_no,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_service_apply b, license_ent_login l
+		where b.ent_id =
+		l.ent_id
+		and l.ent_name = #{ent_name,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_service_apply l,license_invoice_info r where
+		l.ent_id = r.ent_id
+		and r.invoice_apply_id = #{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_service_apply
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+		insert into
+		license_service_apply (id, service_apply_id, tax_no,
+		service_platform,
+		service_type, service_apply_status,
+		remark, db_status, created_date,
+		created, modified_date, modified,
+		ent_id, apply_cert_path, confirmed
+		)
+		values (#{id,jdbcType=INTEGER}, #{serviceApplyId,jdbcType=VARCHAR},
+		#{taxNo,jdbcType=VARCHAR},
+		#{servicePlatform,jdbcType=VARCHAR},
+		#{serviceType,jdbcType=VARCHAR},
+		#{serviceApplyStatus,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT}, #{createdDate,jdbcType=TIMESTAMP},
+		#{created,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR},
+		#{entId,jdbcType=VARCHAR},
+		#{applyCertPath,jdbcType=VARCHAR}, #{confirmed,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+		insert into license_service_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="serviceApplyId != null">
+				service_apply_id,
+			</if>
+			<if test="taxNo != null">
+				tax_no,
+			</if>
+			<if test="servicePlatform != null">
+				service_platform,
+			</if>
+			<if test="serviceType != null">
+				service_type,
+			</if>
+			<if test="serviceApplyStatus != null">
+				service_apply_status,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="applyCertPath != null">
+				apply_cert_path,
+			</if>
+			<if test="confirmed != null">
+				confirmed,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="serviceApplyId != null">
+				#{serviceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="taxNo != null">
+				#{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="servicePlatform != null">
+				#{servicePlatform,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceType != null">
+				#{serviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceApplyStatus != null">
+				#{serviceApplyStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyCertPath != null">
+				#{applyCertPath,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmed != null">
+				#{confirmed,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+		update license_service_apply
+		<set>
+			<if test="serviceApplyId != null">
+				service_apply_id = #{serviceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="taxNo != null">
+				tax_no = #{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="servicePlatform != null">
+				service_platform = #{servicePlatform,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceType != null">
+				service_type = #{serviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceApplyStatus != null">
+				service_apply_status =
+				#{serviceApplyStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyCertPath != null">
+				apply_cert_path = #{applyCertPath,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmed != null">
+				confirmed = #{confirmed,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.enterprise.LicenseServiceApply">
+		update
+		license_service_apply
+		set service_apply_id =
+		#{serviceApplyId,jdbcType=VARCHAR},
+		tax_no = #{taxNo,jdbcType=VARCHAR},
+		service_platform = #{servicePlatform,jdbcType=VARCHAR},
+		service_type =
+		#{serviceType,jdbcType=VARCHAR},
+		service_apply_status =
+		#{serviceApplyStatus,jdbcType=VARCHAR},
+		remark =
+		#{remark,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		apply_cert_path = #{applyCertPath,jdbcType=VARCHAR},
+		confirmed =
+		#{confirmed,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

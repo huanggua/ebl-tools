@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.order.LicenseOrderPayMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.order.LicenseOrderPay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="out_id" jdbcType="VARCHAR" property="outId" />
+		<result column="pay_id" jdbcType="VARCHAR" property="payId" />
+		<result column="pay_way" jdbcType="VARCHAR" property="payWay" />
+		<result column="pay_amount" jdbcType="DECIMAL" property="payAmount" />
+		<result column="pay_status" jdbcType="VARCHAR" property="payStatus" />
+		<result column="pay_confirm" jdbcType="VARCHAR" property="payConfirm" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="mch_id" jdbcType="VARCHAR" property="mchId" />
+		<result column="trade_type" jdbcType="VARCHAR" property="tradeType" />
+		<result column="fee_type" jdbcType="VARCHAR" property="feeType" />
+		<result column="bank_type" jdbcType="VARCHAR" property="bankType" />
+		<result column="terminal_ip" jdbcType="VARCHAR" property="terminalIp" />
+		<result column="total_refund_amount" jdbcType="DECIMAL"
+			property="totalRefundAmount" />
+		<result column="return_pay_no" jdbcType="VARCHAR" property="returnPayNo" />
+		<result column="complete_time" jdbcType="TIMESTAMP" property="completeTime" />
+		<result column="trade_status" jdbcType="VARCHAR" property="tradeStatus" />
+		<result column="return_code" jdbcType="VARCHAR" property="returnCode" />
+		<result column="return_msg" jdbcType="VARCHAR" property="returnMsg" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="real_pay_amount" jdbcType="DECIMAL" property="realPayAmount" />
+
+		<association property="licenseOrderInfo"
+			javaType="com.wangyin.ebl.po.order.LicenseOrderInfo">
+			<id column="id" property="id" />
+			<result column="biz_id" property="bizId" />
+			<result column="order_no" property="orderNo" />
+		</association>
+		<association property="licenseBusinessLicense"
+			javaType="com.wangyin.ebl.po.license.LicenseBusinessLicense">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="ent_id" property="entId" />
+			<result column="tax_no" property="taxNo" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, order_no, out_id, pay_id, pay_way, pay_amount,
+		pay_status,
+		pay_confirm,
+		db_status, created_date, created,
+		modified_date, modified, mch_id, trade_type,
+		fee_type,
+		bank_type,
+		terminal_ip, total_refund_amount, return_pay_no, complete_time,
+		trade_status,
+		return_code, return_msg, remark, real_pay_amount
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_pay
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByBizId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_order_pay b, license_order_info l where
+		b.order_no =
+		l.order_no
+		and l.biz_id = #{biz_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_pay
+		where user_id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_order_pay
+		where order_no = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_order_pay l, license_business_license r
+		where l.user_id =
+		l.user_id
+		and r.ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_order_pay l, license_business_license r
+		where l.user_id =
+		l.user_id
+		and r.tax_no = #{tax_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_order_pay
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.order.LicenseOrderPay">
+		insert into license_order_pay
+		(id, user_id, order_no,
+		out_id, pay_id, pay_way,
+		pay_amount, pay_status,
+		pay_confirm,
+		db_status, created_date, created,
+		modified_date, modified,
+		mch_id,
+		trade_type, fee_type, bank_type,
+		terminal_ip,
+		total_refund_amount, return_pay_no,
+		complete_time, trade_status,
+		return_code,
+		return_msg, remark, real_pay_amount
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=VARCHAR},
+		#{outId,jdbcType=VARCHAR},
+		#{payId,jdbcType=VARCHAR}, #{payWay,jdbcType=VARCHAR},
+		#{payAmount,jdbcType=DECIMAL}, #{payStatus,jdbcType=VARCHAR},
+		#{payConfirm,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR},
+		#{mchId,jdbcType=VARCHAR},
+		#{tradeType,jdbcType=VARCHAR},
+		#{feeType,jdbcType=VARCHAR}, #{bankType,jdbcType=VARCHAR},
+		#{terminalIp,jdbcType=VARCHAR}, #{totalRefundAmount,jdbcType=DECIMAL},
+		#{returnPayNo,jdbcType=VARCHAR},
+		#{completeTime,jdbcType=TIMESTAMP},
+		#{tradeStatus,jdbcType=VARCHAR}, #{returnCode,jdbcType=VARCHAR},
+		#{returnMsg,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{realPayAmount,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderPay">
+		insert into license_order_pay
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="outId != null">
+				out_id,
+			</if>
+			<if test="payId != null">
+				pay_id,
+			</if>
+			<if test="payWay != null">
+				pay_way,
+			</if>
+			<if test="payAmount != null">
+				pay_amount,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="payConfirm != null">
+				pay_confirm,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="mchId != null">
+				mch_id,
+			</if>
+			<if test="tradeType != null">
+				trade_type,
+			</if>
+			<if test="feeType != null">
+				fee_type,
+			</if>
+			<if test="bankType != null">
+				bank_type,
+			</if>
+			<if test="terminalIp != null">
+				terminal_ip,
+			</if>
+			<if test="totalRefundAmount != null">
+				total_refund_amount,
+			</if>
+			<if test="returnPayNo != null">
+				return_pay_no,
+			</if>
+			<if test="completeTime != null">
+				complete_time,
+			</if>
+			<if test="tradeStatus != null">
+				trade_status,
+			</if>
+			<if test="returnCode != null">
+				return_code,
+			</if>
+			<if test="returnMsg != null">
+				return_msg,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="realPayAmount != null">
+				real_pay_amount,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outId != null">
+				#{outId,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				#{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="payWay != null">
+				#{payWay,jdbcType=VARCHAR},
+			</if>
+			<if test="payAmount != null">
+				#{payAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="payConfirm != null">
+				#{payConfirm,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="mchId != null">
+				#{mchId,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeType != null">
+				#{tradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="feeType != null">
+				#{feeType,jdbcType=VARCHAR},
+			</if>
+			<if test="bankType != null">
+				#{bankType,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalIp != null">
+				#{terminalIp,jdbcType=VARCHAR},
+			</if>
+			<if test="totalRefundAmount != null">
+				#{totalRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="returnPayNo != null">
+				#{returnPayNo,jdbcType=VARCHAR},
+			</if>
+			<if test="completeTime != null">
+				#{completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tradeStatus != null">
+				#{tradeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="returnCode != null">
+				#{returnCode,jdbcType=VARCHAR},
+			</if>
+			<if test="returnMsg != null">
+				#{returnMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="realPayAmount != null">
+				#{realPayAmount,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.order.LicenseOrderPay">
+		update license_order_pay
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outId != null">
+				out_id = #{outId,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				pay_id = #{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="payWay != null">
+				pay_way = #{payWay,jdbcType=VARCHAR},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="payConfirm != null">
+				pay_confirm = #{payConfirm,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="mchId != null">
+				mch_id = #{mchId,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeType != null">
+				trade_type = #{tradeType,jdbcType=VARCHAR},
+			</if>
+			<if test="feeType != null">
+				fee_type = #{feeType,jdbcType=VARCHAR},
+			</if>
+			<if test="bankType != null">
+				bank_type = #{bankType,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalIp != null">
+				terminal_ip = #{terminalIp,jdbcType=VARCHAR},
+			</if>
+			<if test="totalRefundAmount != null">
+				total_refund_amount =
+				#{totalRefundAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="returnPayNo != null">
+				return_pay_no = #{returnPayNo,jdbcType=VARCHAR},
+			</if>
+			<if test="completeTime != null">
+				complete_time = #{completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tradeStatus != null">
+				trade_status = #{tradeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="returnCode != null">
+				return_code = #{returnCode,jdbcType=VARCHAR},
+			</if>
+			<if test="returnMsg != null">
+				return_msg = #{returnMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="realPayAmount != null">
+				real_pay_amount = #{realPayAmount,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.order.LicenseOrderPay">
+		update
+		license_order_pay
+		set user_id = #{userId,jdbcType=VARCHAR},
+		order_no =
+		#{orderNo,jdbcType=VARCHAR},
+		out_id = #{outId,jdbcType=VARCHAR},
+		pay_id
+		= #{payId,jdbcType=VARCHAR},
+		pay_way = #{payWay,jdbcType=VARCHAR},
+		pay_amount = #{payAmount,jdbcType=DECIMAL},
+		pay_status =
+		#{payStatus,jdbcType=VARCHAR},
+		pay_confirm =
+		#{payConfirm,jdbcType=VARCHAR},
+		db_status =
+		#{dbStatus,jdbcType=TINYINT},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR},
+		mch_id = #{mchId,jdbcType=VARCHAR},
+		trade_type = #{tradeType,jdbcType=VARCHAR},
+		fee_type =
+		#{feeType,jdbcType=VARCHAR},
+		bank_type = #{bankType,jdbcType=VARCHAR},
+		terminal_ip = #{terminalIp,jdbcType=VARCHAR},
+		total_refund_amount =
+		#{totalRefundAmount,jdbcType=DECIMAL},
+		return_pay_no =
+		#{returnPayNo,jdbcType=VARCHAR},
+		complete_time =
+		#{completeTime,jdbcType=TIMESTAMP},
+		trade_status =
+		#{tradeStatus,jdbcType=VARCHAR},
+		return_code =
+		#{returnCode,jdbcType=VARCHAR},
+		return_msg =
+		#{returnMsg,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		real_pay_amount = #{realPayAmount,jdbcType=DECIMAL}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyin.ebl.dao.tax.LicenseTaxServerInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.tax.LicenseTaxServerInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="tax_no" property="taxNo" jdbcType="VARCHAR" />
+		<result column="customer_manager" property="customerManager"
+			jdbcType="VARCHAR" />
+		<result column="main_accountant" property="mainAccountant"
+			jdbcType="VARCHAR" />
+		<result column="main_accountant_tel" property="mainAccountantTel"
+			jdbcType="VARCHAR" />
+		<result column="out_accountant" property="outAccountant"
+			jdbcType="VARCHAR" />
+		<result column="out_accountant_tel" property="outAccountantTel"
+			jdbcType="VARCHAR" />
+		<result column="service_tel" property="serviceTel" jdbcType="VARCHAR" />
+		<result column="service_org" property="serviceOrg" jdbcType="VARCHAR" />
+		<result column="db_status" property="dbStatus" jdbcType="TINYINT" />
+		<result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="created" property="created" jdbcType="VARCHAR" />
+		<result column="modified_date" property="modifiedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="modified" property="modified" jdbcType="VARCHAR" />
+		<association property="licenseTaxInfo"
+			javaType="com.wangyin.ebl.po.tax.LicenseTaxInfo">
+			<id column="id" property="id" />
+			<result column="tax_no" property="taxNo" />
+			<result column="ent_id" property="entId" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, tax_no, customer_manager, main_accountant,
+		main_accountant_tel,
+		out_accountant,
+		out_accountant_tel, service_tel,
+		service_org, db_status, created_date, created,
+		modified_date,
+		modified
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from license_tax_server_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from license_tax_server_info l,license_tax_info r
+		where
+		l.tax_no = r.tax_no and r.ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_tax_server_info
+		where tax_no = #{tax_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		license_tax_server_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.tax.LicenseTaxServerInfo">
+		insert into
+		license_tax_server_info (id, tax_no, customer_manager,
+		main_accountant, main_accountant_tel, out_accountant,
+		out_accountant_tel, service_tel, service_org,
+		db_status, created_date,
+		created,
+		modified_date, modified)
+		values (#{id,jdbcType=INTEGER},
+		#{taxNo,jdbcType=VARCHAR},
+		#{customerManager,jdbcType=VARCHAR},
+		#{mainAccountant,jdbcType=VARCHAR},
+		#{mainAccountantTel,jdbcType=VARCHAR},
+		#{outAccountant,jdbcType=VARCHAR},
+		#{outAccountantTel,jdbcType=VARCHAR}, #{serviceTel,jdbcType=VARCHAR},
+		#{serviceOrg,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP}, #{modified,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.tax.LicenseTaxServerInfo">
+		insert into license_tax_server_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="taxNo != null">
+				tax_no,
+			</if>
+			<if test="customerManager != null">
+				customer_manager,
+			</if>
+			<if test="mainAccountant != null">
+				main_accountant,
+			</if>
+			<if test="mainAccountantTel != null">
+				main_accountant_tel,
+			</if>
+			<if test="outAccountant != null">
+				out_accountant,
+			</if>
+			<if test="outAccountantTel != null">
+				out_accountant_tel,
+			</if>
+			<if test="serviceTel != null">
+				service_tel,
+			</if>
+			<if test="serviceOrg != null">
+				service_org,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="taxNo != null">
+				#{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customerManager != null">
+				#{customerManager,jdbcType=VARCHAR},
+			</if>
+			<if test="mainAccountant != null">
+				#{mainAccountant,jdbcType=VARCHAR},
+			</if>
+			<if test="mainAccountantTel != null">
+				#{mainAccountantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="outAccountant != null">
+				#{outAccountant,jdbcType=VARCHAR},
+			</if>
+			<if test="outAccountantTel != null">
+				#{outAccountantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTel != null">
+				#{serviceTel,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceOrg != null">
+				#{serviceOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.tax.LicenseTaxServerInfo">
+		update license_tax_server_info
+		<set>
+			<if test="taxNo != null">
+				tax_no = #{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customerManager != null">
+				customer_manager = #{customerManager,jdbcType=VARCHAR},
+			</if>
+			<if test="mainAccountant != null">
+				main_accountant = #{mainAccountant,jdbcType=VARCHAR},
+			</if>
+			<if test="mainAccountantTel != null">
+				main_accountant_tel =
+				#{mainAccountantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="outAccountant != null">
+				out_accountant = #{outAccountant,jdbcType=VARCHAR},
+			</if>
+			<if test="outAccountantTel != null">
+				out_accountant_tel =
+				#{outAccountantTel,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTel != null">
+				service_tel = #{serviceTel,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceOrg != null">
+				service_org = #{serviceOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.tax.LicenseTaxServerInfo">
+		update
+		license_tax_server_info
+		set tax_no = #{taxNo,jdbcType=VARCHAR},
+		customer_manager = #{customerManager,jdbcType=VARCHAR},
+		main_accountant = #{mainAccountant,jdbcType=VARCHAR},
+		main_accountant_tel = #{mainAccountantTel,jdbcType=VARCHAR},
+		out_accountant = #{outAccountant,jdbcType=VARCHAR},
+		out_accountant_tel
+		= #{outAccountantTel,jdbcType=VARCHAR},
+		service_tel =
+		#{serviceTel,jdbcType=VARCHAR},
+		service_org =
+		#{serviceOrg,jdbcType=VARCHAR},
+		db_status =
+		#{dbStatus,jdbcType=TINYINT},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		created =
+		#{created,jdbcType=VARCHAR},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		modified =
+		#{modified,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

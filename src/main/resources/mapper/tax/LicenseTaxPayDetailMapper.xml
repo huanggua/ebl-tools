@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.tax.LicenseTaxPayDetailMapper">
+	<resultMap id="BaseResultMap" type="com.wangyin.ebl.po.tax.LicenseTaxPayDetail">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="tax_no" jdbcType="VARCHAR" property="taxNo" />
+		<result column="tax_pay_id" jdbcType="VARCHAR" property="taxPayId" />
+		<result column="outer_req_no" jdbcType="VARCHAR" property="outerReqNo" />
+		<result column="tax_period" jdbcType="VARCHAR" property="taxPeriod" />
+		<result column="tax_item_code" jdbcType="VARCHAR" property="taxItemCode" />
+		<result column="count_amount" jdbcType="DECIMAL" property="countAmount" />
+		<result column="tax_pay_amount" jdbcType="DECIMAL" property="taxPayAmount" />
+		<result column="count_tax_amount" jdbcType="DECIMAL" property="countTaxAmount" />
+		<result column="real_tax_pay_amount" jdbcType="DECIMAL"
+			property="realTaxPayAmount" />
+		<result column="tax_pay_cert_path" jdbcType="VARCHAR" property="taxPayCertPath" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="tax_type" jdbcType="VARCHAR" property="taxType" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="need_pay_tax" jdbcType="DECIMAL" property="needPayTax" />
+		<result column="tax_start_date" jdbcType="TIMESTAMP" property="taxStartDate" />
+		<result column="tax_end_date" jdbcType="TIMESTAMP" property="taxEndDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, tax_no, tax_pay_id, outer_req_no, tax_period, tax_item_code,
+		count_amount, tax_pay_amount,
+		count_tax_amount, real_tax_pay_amount, tax_pay_cert_path, db_status, created_date,
+		created, modified_date, modified, tax_type, ent_id, need_pay_tax,
+		tax_start_date,
+		tax_end_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_tax_pay_detail
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_tax_pay_detail
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByTaxNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_tax_pay_detail
+		where tax_no = #{tax_no,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from license_tax_pay_detail
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.tax.LicenseTaxPayDetail">
+		insert into license_tax_pay_detail (id, tax_no, tax_pay_id,
+		outer_req_no, tax_period, tax_item_code,
+		count_amount, tax_pay_amount, count_tax_amount,
+		real_tax_pay_amount, tax_pay_cert_path, db_status,
+		created_date, created, modified_date,
+		modified, tax_type, ent_id,
+		need_pay_tax, tax_start_date, tax_end_date
+		)
+		values (#{id,jdbcType=INTEGER}, #{taxNo,jdbcType=VARCHAR},
+		#{taxPayId,jdbcType=VARCHAR},
+		#{outerReqNo,jdbcType=VARCHAR}, #{taxPeriod,jdbcType=VARCHAR}, #{taxItemCode,jdbcType=VARCHAR},
+		#{countAmount,jdbcType=DECIMAL}, #{taxPayAmount,jdbcType=DECIMAL},
+		#{countTaxAmount,jdbcType=DECIMAL},
+		#{realTaxPayAmount,jdbcType=DECIMAL},
+		#{taxPayCertPath,jdbcType=VARCHAR}, #{dbStatus,jdbcType=TINYINT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR}, #{taxType,jdbcType=VARCHAR}, #{entId,jdbcType=VARCHAR},
+		#{needPayTax,jdbcType=DECIMAL}, #{taxStartDate,jdbcType=TIMESTAMP},
+		#{taxEndDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.tax.LicenseTaxPayDetail">
+		insert into license_tax_pay_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="taxNo != null">
+				tax_no,
+			</if>
+			<if test="taxPayId != null">
+				tax_pay_id,
+			</if>
+			<if test="outerReqNo != null">
+				outer_req_no,
+			</if>
+			<if test="taxPeriod != null">
+				tax_period,
+			</if>
+			<if test="taxItemCode != null">
+				tax_item_code,
+			</if>
+			<if test="countAmount != null">
+				count_amount,
+			</if>
+			<if test="taxPayAmount != null">
+				tax_pay_amount,
+			</if>
+			<if test="countTaxAmount != null">
+				count_tax_amount,
+			</if>
+			<if test="realTaxPayAmount != null">
+				real_tax_pay_amount,
+			</if>
+			<if test="taxPayCertPath != null">
+				tax_pay_cert_path,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="taxType != null">
+				tax_type,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="needPayTax != null">
+				need_pay_tax,
+			</if>
+			<if test="taxStartDate != null">
+				tax_start_date,
+			</if>
+			<if test="taxEndDate != null">
+				tax_end_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="taxNo != null">
+				#{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxPayId != null">
+				#{taxPayId,jdbcType=VARCHAR},
+			</if>
+			<if test="outerReqNo != null">
+				#{outerReqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxPeriod != null">
+				#{taxPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="taxItemCode != null">
+				#{taxItemCode,jdbcType=VARCHAR},
+			</if>
+			<if test="countAmount != null">
+				#{countAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="taxPayAmount != null">
+				#{taxPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="countTaxAmount != null">
+				#{countTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realTaxPayAmount != null">
+				#{realTaxPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="taxPayCertPath != null">
+				#{taxPayCertPath,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="taxType != null">
+				#{taxType,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="needPayTax != null">
+				#{needPayTax,jdbcType=DECIMAL},
+			</if>
+			<if test="taxStartDate != null">
+				#{taxStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="taxEndDate != null">
+				#{taxEndDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.tax.LicenseTaxPayDetail">
+		update license_tax_pay_detail
+		<set>
+			<if test="taxNo != null">
+				tax_no = #{taxNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxPayId != null">
+				tax_pay_id = #{taxPayId,jdbcType=VARCHAR},
+			</if>
+			<if test="outerReqNo != null">
+				outer_req_no = #{outerReqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxPeriod != null">
+				tax_period = #{taxPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="taxItemCode != null">
+				tax_item_code = #{taxItemCode,jdbcType=VARCHAR},
+			</if>
+			<if test="countAmount != null">
+				count_amount = #{countAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="taxPayAmount != null">
+				tax_pay_amount = #{taxPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="countTaxAmount != null">
+				count_tax_amount = #{countTaxAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realTaxPayAmount != null">
+				real_tax_pay_amount = #{realTaxPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="taxPayCertPath != null">
+				tax_pay_cert_path = #{taxPayCertPath,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="taxType != null">
+				tax_type = #{taxType,jdbcType=VARCHAR},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="needPayTax != null">
+				need_pay_tax = #{needPayTax,jdbcType=DECIMAL},
+			</if>
+			<if test="taxStartDate != null">
+				tax_start_date = #{taxStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="taxEndDate != null">
+				tax_end_date = #{taxEndDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.tax.LicenseTaxPayDetail">
+		update license_tax_pay_detail
+		set tax_no = #{taxNo,jdbcType=VARCHAR},
+		tax_pay_id = #{taxPayId,jdbcType=VARCHAR},
+		outer_req_no = #{outerReqNo,jdbcType=VARCHAR},
+		tax_period = #{taxPeriod,jdbcType=VARCHAR},
+		tax_item_code = #{taxItemCode,jdbcType=VARCHAR},
+		count_amount = #{countAmount,jdbcType=DECIMAL},
+		tax_pay_amount = #{taxPayAmount,jdbcType=DECIMAL},
+		count_tax_amount = #{countTaxAmount,jdbcType=DECIMAL},
+		real_tax_pay_amount = #{realTaxPayAmount,jdbcType=DECIMAL},
+		tax_pay_cert_path = #{taxPayCertPath,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		created = #{created,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR},
+		tax_type = #{taxType,jdbcType=VARCHAR},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		need_pay_tax = #{needPayTax,jdbcType=DECIMAL},
+		tax_start_date = #{taxStartDate,jdbcType=TIMESTAMP},
+		tax_end_date = #{taxEndDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

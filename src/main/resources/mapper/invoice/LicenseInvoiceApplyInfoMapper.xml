@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.invoice.LicenseInvoiceApplyInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.wangyin.ebl.po.invoice.LicenseInvoiceApplyInfo">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="invoice_apply_id" jdbcType="VARCHAR" property="invoiceApplyId" />
+		<result column="save_tax_apply_no" jdbcType="VARCHAR" property="saveTaxApplyNo" />
+		<result column="platform_code" jdbcType="VARCHAR" property="platformCode" />
+		<result column="drawer_code" jdbcType="VARCHAR" property="drawerCode" />
+		<result column="drawer_name" jdbcType="VARCHAR" property="drawerName" />
+		<result column="drawer_type" jdbcType="VARCHAR" property="drawerType" />
+		<result column="ori_invoice_code" jdbcType="VARCHAR" property="oriInvoiceCode" />
+		<result column="ori_invoice_no" jdbcType="VARCHAR" property="oriInvoiceNo" />
+		<result column="invoice_apply_status" jdbcType="VARCHAR"
+			property="invoiceApplyStatus" />
+		<result column="drawer_elec_schedul_no" jdbcType="VARCHAR"
+			property="drawerElecSchedulNo" />
+		<result column="revenue_office_code" jdbcType="VARCHAR"
+			property="revenueOfficeCode" />
+		<result column="drawer_flag" jdbcType="VARCHAR" property="drawerFlag" />
+		<result column="invoice_code" jdbcType="VARCHAR" property="invoiceCode" />
+		<result column="drawer_item" jdbcType="VARCHAR" property="drawerItem" />
+		<result column="code_version" jdbcType="VARCHAR" property="codeVersion" />
+		<result column="selling_code" jdbcType="VARCHAR" property="sellingCode" />
+		<result column="selling_name" jdbcType="VARCHAR" property="sellingName" />
+		<result column="selling_address" jdbcType="VARCHAR" property="sellingAddress" />
+		<result column="selling_phone" jdbcType="VARCHAR" property="sellingPhone" />
+		<result column="selling_bank_card" jdbcType="VARCHAR" property="sellingBankCard" />
+		<result column="created" jdbcType="VARCHAR" property="created" />
+		<result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+		<result column="modified" jdbcType="VARCHAR" property="modified" />
+		<result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+		<result column="buys_name" jdbcType="VARCHAR" property="buysName" />
+		<result column="buys_code" jdbcType="VARCHAR" property="buysCode" />
+		<result column="buys_phone" jdbcType="VARCHAR" property="buysPhone" />
+		<result column="buys_email" jdbcType="VARCHAR" property="buysEmail" />
+		<result column="buys_company_type" jdbcType="VARCHAR" property="buysCompanyType" />
+		<result column="buys_bankcard_no" jdbcType="VARCHAR" property="buysBankcardNo" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+		<result column="ent_id" jdbcType="VARCHAR" property="entId" />
+		<result column="turn_red_reason" jdbcType="VARCHAR" property="turnRedReason" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, invoice_apply_id, save_tax_apply_no, platform_code, drawer_code,
+		drawer_name,
+		drawer_type, ori_invoice_code, ori_invoice_no, invoice_apply_status,
+		drawer_elec_schedul_no,
+		revenue_office_code, drawer_flag, invoice_code, drawer_item, code_version, selling_code,
+		selling_name, selling_address, selling_phone, selling_bank_card,
+		created, created_date,
+		modified, modified_date, buys_name, buys_code, buys_phone, buys_email,
+		buys_company_type,
+		buys_bankcard_no, remark, db_status, ent_id, turn_red_reason
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_apply_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_apply_info
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_apply_info
+		where invoice_apply_id = #{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from license_invoice_apply_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceApplyInfo">
+		insert into license_invoice_apply_info (id, invoice_apply_id,
+		save_tax_apply_no,
+		platform_code, drawer_code, drawer_name,
+		drawer_type, ori_invoice_code, ori_invoice_no,
+		invoice_apply_status, drawer_elec_schedul_no,
+		revenue_office_code, drawer_flag, invoice_code,
+		drawer_item, code_version, selling_code,
+		selling_name, selling_address, selling_phone,
+		selling_bank_card, created, created_date,
+		modified, modified_date, buys_name,
+		buys_code, buys_phone, buys_email,
+		buys_company_type, buys_bankcard_no, remark,
+		db_status, ent_id, turn_red_reason
+		)
+		values (#{id,jdbcType=BIGINT}, #{invoiceApplyId,jdbcType=VARCHAR},
+		#{saveTaxApplyNo,jdbcType=VARCHAR},
+		#{platformCode,jdbcType=VARCHAR}, #{drawerCode,jdbcType=VARCHAR}, #{drawerName,jdbcType=VARCHAR},
+		#{drawerType,jdbcType=VARCHAR}, #{oriInvoiceCode,jdbcType=VARCHAR},
+		#{oriInvoiceNo,jdbcType=VARCHAR},
+		#{invoiceApplyStatus,jdbcType=VARCHAR},
+		#{drawerElecSchedulNo,jdbcType=VARCHAR},
+		#{revenueOfficeCode,jdbcType=VARCHAR}, #{drawerFlag,jdbcType=VARCHAR},
+		#{invoiceCode,jdbcType=VARCHAR},
+		#{drawerItem,jdbcType=VARCHAR}, #{codeVersion,jdbcType=VARCHAR}, #{sellingCode,jdbcType=VARCHAR},
+		#{sellingName,jdbcType=VARCHAR}, #{sellingAddress,jdbcType=VARCHAR},
+		#{sellingPhone,jdbcType=VARCHAR},
+		#{sellingBankCard,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP},
+		#{modified,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP},
+		#{buysName,jdbcType=VARCHAR},
+		#{buysCode,jdbcType=VARCHAR}, #{buysPhone,jdbcType=VARCHAR}, #{buysEmail,jdbcType=VARCHAR},
+		#{buysCompanyType,jdbcType=VARCHAR},
+		#{buysBankcardNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{dbStatus,jdbcType=TINYINT}, #{entId,jdbcType=VARCHAR},
+		#{turnRedReason,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceApplyInfo">
+		insert into license_invoice_apply_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="invoiceApplyId != null">
+				invoice_apply_id,
+			</if>
+			<if test="saveTaxApplyNo != null">
+				save_tax_apply_no,
+			</if>
+			<if test="platformCode != null">
+				platform_code,
+			</if>
+			<if test="drawerCode != null">
+				drawer_code,
+			</if>
+			<if test="drawerName != null">
+				drawer_name,
+			</if>
+			<if test="drawerType != null">
+				drawer_type,
+			</if>
+			<if test="oriInvoiceCode != null">
+				ori_invoice_code,
+			</if>
+			<if test="oriInvoiceNo != null">
+				ori_invoice_no,
+			</if>
+			<if test="invoiceApplyStatus != null">
+				invoice_apply_status,
+			</if>
+			<if test="drawerElecSchedulNo != null">
+				drawer_elec_schedul_no,
+			</if>
+			<if test="revenueOfficeCode != null">
+				revenue_office_code,
+			</if>
+			<if test="drawerFlag != null">
+				drawer_flag,
+			</if>
+			<if test="invoiceCode != null">
+				invoice_code,
+			</if>
+			<if test="drawerItem != null">
+				drawer_item,
+			</if>
+			<if test="codeVersion != null">
+				code_version,
+			</if>
+			<if test="sellingCode != null">
+				selling_code,
+			</if>
+			<if test="sellingName != null">
+				selling_name,
+			</if>
+			<if test="sellingAddress != null">
+				selling_address,
+			</if>
+			<if test="sellingPhone != null">
+				selling_phone,
+			</if>
+			<if test="sellingBankCard != null">
+				selling_bank_card,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="modified != null">
+				modified,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="buysName != null">
+				buys_name,
+			</if>
+			<if test="buysCode != null">
+				buys_code,
+			</if>
+			<if test="buysPhone != null">
+				buys_phone,
+			</if>
+			<if test="buysEmail != null">
+				buys_email,
+			</if>
+			<if test="buysCompanyType != null">
+				buys_company_type,
+			</if>
+			<if test="buysBankcardNo != null">
+				buys_bankcard_no,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="dbStatus != null">
+				db_status,
+			</if>
+			<if test="entId != null">
+				ent_id,
+			</if>
+			<if test="turnRedReason != null">
+				turn_red_reason,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="invoiceApplyId != null">
+				#{invoiceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="saveTaxApplyNo != null">
+				#{saveTaxApplyNo,jdbcType=VARCHAR},
+			</if>
+			<if test="platformCode != null">
+				#{platformCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerCode != null">
+				#{drawerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerName != null">
+				#{drawerName,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerType != null">
+				#{drawerType,jdbcType=VARCHAR},
+			</if>
+			<if test="oriInvoiceCode != null">
+				#{oriInvoiceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="oriInvoiceNo != null">
+				#{oriInvoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceApplyStatus != null">
+				#{invoiceApplyStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerElecSchedulNo != null">
+				#{drawerElecSchedulNo,jdbcType=VARCHAR},
+			</if>
+			<if test="revenueOfficeCode != null">
+				#{revenueOfficeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerFlag != null">
+				#{drawerFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceCode != null">
+				#{invoiceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerItem != null">
+				#{drawerItem,jdbcType=VARCHAR},
+			</if>
+			<if test="codeVersion != null">
+				#{codeVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingCode != null">
+				#{sellingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingName != null">
+				#{sellingName,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingAddress != null">
+				#{sellingAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingPhone != null">
+				#{sellingPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingBankCard != null">
+				#{sellingBankCard,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				#{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="buysName != null">
+				#{buysName,jdbcType=VARCHAR},
+			</if>
+			<if test="buysCode != null">
+				#{buysCode,jdbcType=VARCHAR},
+			</if>
+			<if test="buysPhone != null">
+				#{buysPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="buysEmail != null">
+				#{buysEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="buysCompanyType != null">
+				#{buysCompanyType,jdbcType=VARCHAR},
+			</if>
+			<if test="buysBankcardNo != null">
+				#{buysBankcardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				#{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				#{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="turnRedReason != null">
+				#{turnRedReason,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceApplyInfo">
+		update license_invoice_apply_info
+		<set>
+			<if test="invoiceApplyId != null">
+				invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+			</if>
+			<if test="saveTaxApplyNo != null">
+				save_tax_apply_no = #{saveTaxApplyNo,jdbcType=VARCHAR},
+			</if>
+			<if test="platformCode != null">
+				platform_code = #{platformCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerCode != null">
+				drawer_code = #{drawerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerName != null">
+				drawer_name = #{drawerName,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerType != null">
+				drawer_type = #{drawerType,jdbcType=VARCHAR},
+			</if>
+			<if test="oriInvoiceCode != null">
+				ori_invoice_code = #{oriInvoiceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="oriInvoiceNo != null">
+				ori_invoice_no = #{oriInvoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceApplyStatus != null">
+				invoice_apply_status = #{invoiceApplyStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerElecSchedulNo != null">
+				drawer_elec_schedul_no = #{drawerElecSchedulNo,jdbcType=VARCHAR},
+			</if>
+			<if test="revenueOfficeCode != null">
+				revenue_office_code = #{revenueOfficeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerFlag != null">
+				drawer_flag = #{drawerFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="invoiceCode != null">
+				invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="drawerItem != null">
+				drawer_item = #{drawerItem,jdbcType=VARCHAR},
+			</if>
+			<if test="codeVersion != null">
+				code_version = #{codeVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingCode != null">
+				selling_code = #{sellingCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingName != null">
+				selling_name = #{sellingName,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingAddress != null">
+				selling_address = #{sellingAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingPhone != null">
+				selling_phone = #{sellingPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingBankCard != null">
+				selling_bank_card = #{sellingBankCard,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modified != null">
+				modified = #{modified,jdbcType=VARCHAR},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="buysName != null">
+				buys_name = #{buysName,jdbcType=VARCHAR},
+			</if>
+			<if test="buysCode != null">
+				buys_code = #{buysCode,jdbcType=VARCHAR},
+			</if>
+			<if test="buysPhone != null">
+				buys_phone = #{buysPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="buysEmail != null">
+				buys_email = #{buysEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="buysCompanyType != null">
+				buys_company_type = #{buysCompanyType,jdbcType=VARCHAR},
+			</if>
+			<if test="buysBankcardNo != null">
+				buys_bankcard_no = #{buysBankcardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="dbStatus != null">
+				db_status = #{dbStatus,jdbcType=TINYINT},
+			</if>
+			<if test="entId != null">
+				ent_id = #{entId,jdbcType=VARCHAR},
+			</if>
+			<if test="turnRedReason != null">
+				turn_red_reason = #{turnRedReason,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceApplyInfo">
+		update license_invoice_apply_info
+		set invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+		save_tax_apply_no = #{saveTaxApplyNo,jdbcType=VARCHAR},
+		platform_code = #{platformCode,jdbcType=VARCHAR},
+		drawer_code = #{drawerCode,jdbcType=VARCHAR},
+		drawer_name = #{drawerName,jdbcType=VARCHAR},
+		drawer_type = #{drawerType,jdbcType=VARCHAR},
+		ori_invoice_code = #{oriInvoiceCode,jdbcType=VARCHAR},
+		ori_invoice_no = #{oriInvoiceNo,jdbcType=VARCHAR},
+		invoice_apply_status = #{invoiceApplyStatus,jdbcType=VARCHAR},
+		drawer_elec_schedul_no = #{drawerElecSchedulNo,jdbcType=VARCHAR},
+		revenue_office_code = #{revenueOfficeCode,jdbcType=VARCHAR},
+		drawer_flag = #{drawerFlag,jdbcType=VARCHAR},
+		invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+		drawer_item = #{drawerItem,jdbcType=VARCHAR},
+		code_version = #{codeVersion,jdbcType=VARCHAR},
+		selling_code = #{sellingCode,jdbcType=VARCHAR},
+		selling_name = #{sellingName,jdbcType=VARCHAR},
+		selling_address = #{sellingAddress,jdbcType=VARCHAR},
+		selling_phone = #{sellingPhone,jdbcType=VARCHAR},
+		selling_bank_card = #{sellingBankCard,jdbcType=VARCHAR},
+		created = #{created,jdbcType=VARCHAR},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		modified = #{modified,jdbcType=VARCHAR},
+		modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+		buys_name = #{buysName,jdbcType=VARCHAR},
+		buys_code = #{buysCode,jdbcType=VARCHAR},
+		buys_phone = #{buysPhone,jdbcType=VARCHAR},
+		buys_email = #{buysEmail,jdbcType=VARCHAR},
+		buys_company_type = #{buysCompanyType,jdbcType=VARCHAR},
+		buys_bankcard_no = #{buysBankcardNo,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		db_status = #{dbStatus,jdbcType=TINYINT},
+		ent_id = #{entId,jdbcType=VARCHAR},
+		turn_red_reason = #{turnRedReason,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

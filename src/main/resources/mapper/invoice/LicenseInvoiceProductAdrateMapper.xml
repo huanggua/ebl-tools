@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyin.ebl.dao.invoice.LicenseInvoiceProductAdrateMapper">
+  <resultMap id="BaseResultMap" type="com.wangyin.ebl.po.invoice.LicenseInvoiceProductAdrate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="invoice_apply_id" jdbcType="VARCHAR" property="invoiceApplyId" />
+    <result column="pf_product_id" jdbcType="VARCHAR" property="pfProductId" />
+    <result column="tax_item_name" jdbcType="VARCHAR" property="taxItemName" />
+    <result column="tax_item_code" jdbcType="VARCHAR" property="taxItemCode" />
+    <result column="tax_rate" jdbcType="DECIMAL" property="taxRate" />
+    <result column="tax_amount" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="modified" jdbcType="VARCHAR" property="modified" />
+    <result column="modified_date" jdbcType="TIMESTAMP" property="modifiedDate" />
+    <result column="db_status" jdbcType="TINYINT" property="dbStatus" />
+    <result column="ent_id" jdbcType="VARCHAR" property="entId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, invoice_apply_id, pf_product_id, tax_item_name, tax_item_code, tax_rate, tax_amount, 
+    created, created_date, modified, modified_date, db_status, ent_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from license_invoice_product_adrate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByEntId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_product_adrate
+		where ent_id = #{ent_id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByInvoiceApplyId" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from license_invoice_product_adrate
+		where invoice_apply_id =
+		#{invoice_apply_id,jdbcType=VARCHAR}
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from license_invoice_product_adrate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProductAdrate">
+    insert into license_invoice_product_adrate (id, invoice_apply_id, pf_product_id, 
+      tax_item_name, tax_item_code, tax_rate, 
+      tax_amount, created, created_date, 
+      modified, modified_date, db_status, 
+      ent_id)
+    values (#{id,jdbcType=BIGINT}, #{invoiceApplyId,jdbcType=VARCHAR}, #{pfProductId,jdbcType=VARCHAR}, 
+      #{taxItemName,jdbcType=VARCHAR}, #{taxItemCode,jdbcType=VARCHAR}, #{taxRate,jdbcType=DECIMAL}, 
+      #{taxAmount,jdbcType=DECIMAL}, #{created,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{modified,jdbcType=VARCHAR}, #{modifiedDate,jdbcType=TIMESTAMP}, #{dbStatus,jdbcType=TINYINT}, 
+      #{entId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProductAdrate">
+    insert into license_invoice_product_adrate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="invoiceApplyId != null">
+        invoice_apply_id,
+      </if>
+      <if test="pfProductId != null">
+        pf_product_id,
+      </if>
+      <if test="taxItemName != null">
+        tax_item_name,
+      </if>
+      <if test="taxItemCode != null">
+        tax_item_code,
+      </if>
+      <if test="taxRate != null">
+        tax_rate,
+      </if>
+      <if test="taxAmount != null">
+        tax_amount,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+      <if test="modifiedDate != null">
+        modified_date,
+      </if>
+      <if test="dbStatus != null">
+        db_status,
+      </if>
+      <if test="entId != null">
+        ent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceApplyId != null">
+        #{invoiceApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="pfProductId != null">
+        #{pfProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="taxItemName != null">
+        #{taxItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxItemCode != null">
+        #{taxItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbStatus != null">
+        #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="entId != null">
+        #{entId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProductAdrate">
+    update license_invoice_product_adrate
+    <set>
+      <if test="invoiceApplyId != null">
+        invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="pfProductId != null">
+        pf_product_id = #{pfProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="taxItemName != null">
+        tax_item_name = #{taxItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxItemCode != null">
+        tax_item_code = #{taxItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null">
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        tax_amount = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedDate != null">
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dbStatus != null">
+        db_status = #{dbStatus,jdbcType=TINYINT},
+      </if>
+      <if test="entId != null">
+        ent_id = #{entId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyin.ebl.po.invoice.LicenseInvoiceProductAdrate">
+    update license_invoice_product_adrate
+    set invoice_apply_id = #{invoiceApplyId,jdbcType=VARCHAR},
+      pf_product_id = #{pfProductId,jdbcType=VARCHAR},
+      tax_item_name = #{taxItemName,jdbcType=VARCHAR},
+      tax_item_code = #{taxItemCode,jdbcType=VARCHAR},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      tax_amount = #{taxAmount,jdbcType=DECIMAL},
+      created = #{created,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=VARCHAR},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      db_status = #{dbStatus,jdbcType=TINYINT},
+      ent_id = #{entId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
