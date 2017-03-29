@@ -101,81 +101,10 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<!--营销平台活动验证需要 -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>15.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wangyin.npp</groupId>
-			<artifactId>npp-common</artifactId>
-			<version>2.2.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>logback-classic</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.wangyin</groupId>
-			<artifactId>wangyin-commons</artifactId>
-			<version>1.0.6</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>logback-classic</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>logback-core</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- 接口公共包，凭证等的定义在这个包内 -->
-		<dependency>
-			<groupId>com.wangyin.account</groupId>
-			<artifactId>account-api-common</artifactId>
-			<version>1.0.8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wangyin.account</groupId>
-			<artifactId>account-api-payment</artifactId>
-			<version>1.0.6</version>
-		</dependency>
-		<!-- 管理类接口，包括账户创建、账户状态管理等操作 -->
-		<dependency>
-			<groupId>com.wangyin.account</groupId>
-			<artifactId>account-api-manage</artifactId>
-			<version>1.0.9</version>
-		</dependency>
-		<dependency>
-			<groupId>com.wangyin.account</groupId>
-			<artifactId>account-api-query</artifactId>
-			<version>1.0.3</version>
-		</dependency>
-		<!-- dubbo -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>2.4.10.1-wy</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.4.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.netflix.curator</groupId>
-			<artifactId>curator-framework</artifactId>
-			<version>1.1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.sgroschupf</groupId>
